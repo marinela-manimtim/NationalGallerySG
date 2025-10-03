@@ -175,7 +175,157 @@ public class NavigationPage {
         goToLearnAboutArt();
         clickIntroToArt();
     }
-
-
+    public void clickArtAtHome(){
+        Locator menuArtAtHomeTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Art at Home for Families"));
+        menuArtAtHomeTextLink.click();
+    }
+    public void goToArtAtHome(){
+        goToLearnAboutArt();
+        clickArtAtHome();
+    }
+    public void clickAudioTours(){
+        Locator menuAudioToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Audio Tours"));
+        menuAudioToursTextLink.click();
+    }
+    public void goToAudioTours(){
+        goToLearnAboutArt();
+        clickAudioTours();
+    }
+    public void clickArtConservation(){
+        Locator menuArtConservationTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Art Conservation"));
+        menuArtConservationTextLink.click();
+    }
+    public void goToArtConservation(){
+        goToLearnAboutArt();
+        clickArtConservation();
+    }
+    public void clickPublications(){
+        Locator menuPublicationsTextLink = page.getByLabel("Learn About Art Panel").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Publications"));
+        menuPublicationsTextLink.click();
+    }
+    public void goToPublications(){
+        goToLearnAboutArt();
+        clickPublications();
+    }
+    public void clickPerspectivesMagazine(){
+        Locator menuPerspectivesMagazineTextLink = page.getByLabel("Learn About Art Panel").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Perspectives Magazine"));
+        menuPerspectivesMagazineTextLink.click();
+    }
+    public void goToPerspectivesMagazine(){
+        goToLearnAboutArt();
+        clickPerspectivesMagazine();
+    }
+    public void clickOnlineArtCourses(){
+        Locator menuOnlineArtCoursesTextLink = page.getByLabel("Learn About Art Panel").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Online Art Courses"));
+        menuOnlineArtCoursesTextLink.click();
+    }
+    public void goToOnlineArtCourses(){
+        goToLearnAboutArt();
+        clickOnlineArtCourses();
+    }
+    public void clickCuratorialResearch(){
+        Locator menuCuratorialResearchTextLink = page.getByLabel("Learn About Art Panel").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Curatorial Research"));
+        menuCuratorialResearchTextLink.click();
+    }
+    public void goToCuratorialResearch(){
+        goToLearnAboutArt();
+        clickCuratorialResearch();
+    }
+    public void clickVisit(){
+        Locator menuVisitTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Visit"));
+        menuVisitTextLink.click();
+    }
+    public void goToVisit(){
+        clickMenuIcon();
+        clickVisit();
+    }
+    public void clickVisitWhatsOn(){
+        Locator menuVisitWhatsOnTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("What’s On "));
+        menuVisitWhatsOnTextLink.click();
+    }
+    public void goToVisitWhatsOn(){
+        goToVisit();
+        clickVisitWhatsOn();
+    }
+    public void clickVisitViewAllExhibitions(){
+        Locator menuVisitViewAllExhibitionsTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("View all Exhibitions "));
+        menuVisitViewAllExhibitionsTextLink.click();
+    }
+    public void goToVisitViewAllExhibitions(){
+        goToVisit();
+        clickVisitViewAllExhibitions();
+    }
+    public void clickVisitGuidedTours(){
+        Locator menuVisitGuidedToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Guided Tours").setExact(true));
+        menuVisitGuidedToursTextLink.click();
+    }
+    public void goToVisitGuidedTours(){
+        goToVisit();
+        clickVisitGuidedTours();
+    }
+    public void clickVisitSelfGuidedTours(){
+        Locator menuVisitSelfGuidedToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Self-Guided Tours"));
+        menuVisitSelfGuidedToursTextLink.click();
+    }
+    public void goToVisitSelfGuidedTours(){
+        goToVisit();
+        clickVisitSelfGuidedTours();
+    }
+    public void clickVisitAudioTours(){
+        Locator menuVisitAudioToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Audio Tours").setExact(true));
+        menuVisitAudioToursTextLink.click();
+    }
+    public void goToVisitAudioTours(){
+        goToVisit();
+        clickVisitAudioTours();
+    }
+    public void clickVisitViewAllTours(){
+        Locator menuVisitViewAllToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("View All Tours"));
+        menuVisitViewAllToursTextLink.click();
+    }
+    public void goToVisitViewAllTours(){
+        goToVisit();
+        clickVisitViewAllTours();
+    }
+    public void clickVisitFamilyGuide(){
+        Locator menuVisitFamilyGuideTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Family Guide"));
+        menuVisitFamilyGuideTextLink.click();
+    }
+    public void goToVisitFamilyGuide(){
+        goToVisit();
+        clickVisitFamilyGuide();
+    }
+    public void clickVisitAccessibility(){
+        Locator menuVisitAccessibilityTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Accessibility at the Gallery"));
+        menuVisitAccessibilityTextLink.click();
+    }
+    public void goToVisitAccessibility(){
+        goToVisit();
+        clickVisitAccessibility();
+    }
+    public void clickVisitGalleryGuideMap(){
+        Locator menuVisitGalleryGuideMapTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Gallery Guide + Map"));
+        menuVisitGalleryGuideMapTextLink.click();
+    }
+    public void goToVisitGalleryGuideMap(){
+        goToVisit();
+        clickVisitGalleryGuideMap();
+    }
+    public void clickVisitOpeningHours(){
+        Locator menuVisitOpeningHoursTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Opening Hours & Getting Here"));
+        menuVisitOpeningHoursTextLink.click();
+    }
+    public void goToVisitOpeningHours(){
+        goToVisit();
+        clickVisitOpeningHours();
+    }
+    public void clickVisitAdmissionTicketing(){
+        Locator menuVisitAdmissionTicketingTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Admission & Ticketing"));
+        menuVisitAdmissionTicketingTextLink.click();
+    }
+    public void goToVisitAdmissionTicketing(){
+        goToVisit();
+        clickVisitAdmissionTicketing();
+    }
 }
 
