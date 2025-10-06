@@ -5,6 +5,8 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
 public class NavigationPage {
     //declare variable for Playwright Page
     Page page;
@@ -176,7 +178,7 @@ public class NavigationPage {
         clickIntroToArt();
     }
     public void clickArtAtHome(){
-        Locator menuArtAtHomeTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Art at Home for Families"));
+        Locator menuArtAtHomeTextLink = page.getByLabel("Learn About Art Panel").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Art at Home for Families"));
         menuArtAtHomeTextLink.click();
     }
     public void goToArtAtHome(){
@@ -184,7 +186,7 @@ public class NavigationPage {
         clickArtAtHome();
     }
     public void clickAudioTours(){
-        Locator menuAudioToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Audio Tours"));
+        Locator menuAudioToursTextLink = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Audio Tours")).nth(1);
         menuAudioToursTextLink.click();
     }
     public void goToAudioTours(){
@@ -192,7 +194,7 @@ public class NavigationPage {
         clickAudioTours();
     }
     public void clickArtConservation(){
-        Locator menuArtConservationTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Art Conservation"));
+        Locator menuArtConservationTextLink = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Art Conservation")).nth(1);
         menuArtConservationTextLink.click();
     }
     public void goToArtConservation(){
@@ -232,7 +234,7 @@ public class NavigationPage {
         clickCuratorialResearch();
     }
     public void clickVisit(){
-        Locator menuVisitTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Visit"));
+        Locator menuVisitTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Visit").setExact(true));
         menuVisitTextLink.click();
     }
     public void goToVisit(){
@@ -326,6 +328,253 @@ public class NavigationPage {
     public void goToVisitAdmissionTicketing(){
         goToVisit();
         clickVisitAdmissionTicketing();
+    }
+    public void clickVisitDineShop(){
+        Locator menuVisitDineShopTextLink = page.getByRole(AriaRole.REGION, new Page.GetByRoleOptions().setName("Visit")).getByLabel("Dine & Shop");
+        menuVisitDineShopTextLink.click();
+    }
+    public void goToVisitDineShop(){
+        goToVisit();
+        clickVisitDineShop();
+    }
+    public void clickVisitRotundaLibrary(){
+        Locator menuVisitRotundaLibraryTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Rotunda Library & Archive"));
+        menuVisitRotundaLibraryTextLink.click();
+    }
+    public void goToVisitRotundaLibrary(){
+        goToVisit();
+        clickVisitRotundaLibrary();
+    }
+    public void clickVisitKeppelCentre(){
+        Locator menuVisitKeppelCentreTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Keppel Centre for Art"));
+        menuVisitKeppelCentreTextLink.click();
+    }
+    public void goToVisitKeppelCentre(){
+        goToVisit();
+        clickVisitKeppelCentre();
+    }
+    public void clickVisitMoreVisitorInformation(){
+        Locator menuVisitVisitInformationTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("More Visitor Information"));
+                menuVisitVisitInformationTextLink.click();
+    }
+    public void goToVisitMoreVisitorInformation(){
+        goToVisit();
+        clickVisitMoreVisitorInformation();
+    }
+    public void clickVisitSchoolVisit(){
+        Locator menuVisitSchoolVisitTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("School Visit "));
+        menuVisitSchoolVisitTextLink.click();
+    }
+    public void goToVisitSchoolVisit(){
+        goToVisit();
+        clickVisitSchoolVisit();
+    }
+    public void clickVisitBecomeAMember(){
+        Locator menuVisitBecomeAMemberTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Become a Member "));
+        menuVisitBecomeAMemberTextLink.click();
+    }
+    public void goToVisitBecomeAMember(){
+        goToVisit();
+        clickVisitBecomeAMember();
+    }
+    public void clickVisitSGCulturePass(){
+        Locator menuVisitSGCulturePassTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("SG Culture Pass Programmes "));
+        menuVisitSGCulturePassTextLink.click();
+    }
+    public void goToVisitSGCulturePass(){
+        goToVisit();
+        clickVisitSGCulturePass();
+    }
+    public void clickAbout(){
+        Locator menuAboutTextLink = page.getByRole(AriaRole.MENUITEM, new Page.GetByRoleOptions().setName("About").setExact(true));
+        menuAboutTextLink.click();
+    }
+    public void goToAbout(){
+        clickMenuIcon();
+        clickAbout();
+    }
+    public void clickAboutOurStory(){
+        Locator menuOurStoryTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Our Story"));
+        menuOurStoryTextLink.click();
+    }
+    public void goToAboutOurStory(){
+        goToAbout();
+        clickAboutOurStory();
+    }
+    public void clickAboutLeadership(){
+        Locator menuAboutLeadershipTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Leadership"));
+        menuAboutLeadershipTextLink.click();
+    }
+    public void goToAboutLeadership(){
+        goToAbout();
+        clickAboutLeadership();
+    }
+    public void clickAboutOurAwards(){
+        Locator menuAboutOurAwardsTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Our Awards"));
+        menuAboutOurAwardsTextLink.click();
+    }
+    public void goToAboutOurAwards(){
+        goToAbout();
+        clickAboutOurAwards();
+    }
+    public void clickAboutMediaCentre(){
+        Locator menuAboutMediaCentreTextLink = page.getByRole(AriaRole.REGION, new Page.GetByRoleOptions().setName("About Panel")).getByLabel("Media Centre");
+        menuAboutMediaCentreTextLink.click();
+    }
+    public void goToAboutMediaCentre(){
+        goToAbout();
+        clickAboutMediaCentre();
+    }
+    public void clickAboutAnnualReports(){
+        Locator menuAboutAnnualReportsTextLink = page.getByRole(AriaRole.REGION, new Page.GetByRoleOptions().setName("About Panel")).getByLabel("Annual Reports");
+        menuAboutAnnualReportsTextLink.click();
+    }
+    public void goToAboutAnnualReports(){
+        goToAbout();
+        clickAboutAnnualReports();
+    }
+    public void clickAboutSustainability(){
+        Locator menuAboutSustainabilityTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sustainability"));
+        menuAboutSustainabilityTextLink.click();
+    }
+    public void goToAboutSustainability(){
+        goToAbout();
+        clickAboutSustainability();
+    }
+    public void clickAboutOurInitiatives(){
+        Locator menuAboutOurInitiativesTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Our Initiatives &"));
+        menuAboutOurInitiativesTextLink.click();
+    }
+    public void goToAboutOurInitiatives() {
+        goToAbout();
+        clickAboutOurInitiatives();
+    }
+    public void clickAboutCommunityGroupVisits(){
+        Locator menuAboutCommunityGroupVisitsTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Community Group Visits"));
+        menuAboutCommunityGroupVisitsTextLink.click();
+    }
+    public void goToAboutCommunityGroupVisits(){
+        goToAbout();
+        clickAboutCommunityGroupVisits();
+    }
+    public void clickAboutCareers() {
+        Locator menuAboutCareersTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Careers & Internships"));
+        menuAboutCareersTextLink.click();
+    }
+    public void goToAboutCareers(){
+        goToAbout();
+        clickAboutCareers();
+    }
+    public void clickAboutVenueRental(){
+        Locator menuAboutVenueRentalTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Venue Rental"));
+        menuAboutVenueRentalTextLink.click();
+    }
+    public void goToAboutVenueRental(){
+        goToAbout();
+        clickAboutVenueRental();
+    }
+    public void clickAboutPhotoshoots(){
+        Locator menuAboutPhotoshootsTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Photoshoots & Filming"));
+        menuAboutPhotoshootsTextLink.click();
+    }
+    public void goToAboutPhotoshoots(){
+        goToAbout();
+        clickAboutPhotoshoots();
+    }
+    public void clickAboutBusinessOpportunities(){
+        Locator menuAboutBusinessOpportunitiesTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Business Opportunities"));
+        menuAboutBusinessOpportunitiesTextLink.click();
+    }
+    public void goToAboutBusinessOpportunities(){
+        goToAbout();
+        clickAboutBusinessOpportunities();
+    }
+    public void clickAboutEnquiries(){
+        Locator menuAboutEnquiriesTextLink =page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Enquiries"));
+        menuAboutEnquiriesTextLink.click();
+    }
+    public void goToAboutEnquiries(){
+        goToAbout();
+        clickAboutEnquiries();
+    }
+    public void clickAboutWhistleblowing(){
+        Locator menuAboutWhistleblowingTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Whistleblowing"));
+        menuAboutWhistleblowingTextLink.click();
+    }
+    public void goToAboutWhistleblowing(){
+        goToAbout();
+        clickAboutWhistleblowing();
+    }
+    public void clickMenuDonateVolunteer(){
+        Locator menuDonateVolunteerTextLink = page.getByRole(AriaRole.MENUITEM, new Page.GetByRoleOptions().setName("Donate & Volunteer"));
+        menuDonateVolunteerTextLink.click();
+    }
+    public void goToMenuDonateVolunteer(){
+        clickMenuIcon();
+        clickMenuDonateVolunteer();
+    }
+    public void clickMemberSignUpLogin(){
+        Locator menuMemberSignUpLoginTextLink = page.getByRole(AriaRole.MENUITEM, new Page.GetByRoleOptions().setName("Member Sign Up/Login"));
+        menuMemberSignUpLoginTextLink.click();
+    }
+    public void goToMenuMemberSignUpLogin(){
+        clickMenuIcon();
+        clickMemberSignUpLogin();
+    }
+    public void clickVenueRental(){
+        Locator menuVenueRentalTextLink = page.getByRole(AriaRole.MENUITEM, new Page.GetByRoleOptions().setName("Venue Rental"));
+        menuVenueRentalTextLink.click();
+    }
+    public void goToMenuVenueRental(){
+        clickMenuIcon();
+        clickVenueRental();
+    }
+    public void clickMenuIAm(){
+        Locator menuIAmDropdown = page.getByText("I am a...Donor, Patron or");
+        menuIAmDropdown.click();
+    }
+    public void clickDonorPatronVolunteer(){
+        Locator menuDonorPatronVolunteerOption = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Donor, Patron or Volunteer"));
+        menuDonorPatronVolunteerOption.click();
+    }
+    public void goToMenuDonorPatronVolunteer(){
+        clickMenuIcon();
+        clickMenuIAm();
+        clickDonorPatronVolunteer();
+    }
+    public void clickVendorBusinessPartner(){
+        Locator menuVendorBusinessPartnerOption = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Vendor/Business Partner"));
+        menuVendorBusinessPartnerOption.click();
+    }
+    public void goToMenuVendorBusinessPartner(){
+        clickMenuIcon();
+        clickMenuIAm();
+        clickVendorBusinessPartner();
+    }
+    public void clickMediaProfessional(){
+        Locator menuMediaProfessionalOption = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Media Professional"));
+        menuMediaProfessionalOption.click();
+    }
+    public void goToMenuMediaProfessional(){
+        clickMenuIcon();
+        clickMenuIAm();
+        clickMediaProfessional();
+    }
+    public void clickEventOrganiser(){
+        Locator menuEventOrganiserOption = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Venue Hirer/Event Organiser"));
+        menuEventOrganiserOption.click();
+    }
+    public void goToMenuEventOrganiser(){
+        clickMenuIcon();
+        clickMenuIAm();
+        clickEventOrganiser();
+    }
+    public void clickMainNavigationXButton(){
+        Locator menuMainNavigationXButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Menu"));
+        menuMainNavigationXButton.click();
+    }
+    public void goToCloseMainNavigation(){
+        clickMainNavigationXButton();
     }
 }
 

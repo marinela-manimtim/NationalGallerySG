@@ -213,16 +213,12 @@ public class NavigationTest extends BaseTest{
    //@Todo implement TimeoutError https://playwright.dev/docs/api/class-timeouterror
    @Test(priority = 34)
    public void menuVisitGalleryGuideMapTest(){
-      navigationPage.clickPopUpXButton();
-      navigationPage.clickPopUpXButton();
-      navigationPage.goToVisitGalleryGuideMap();
       Page page1 = page.waitForPopup(() -> {
-         navigationPage.clickVisitGalleryGuideMap();
+         navigationPage.goToVisitGalleryGuideMap();
       });
       assertThat(page1).hasURL("https://www.nationalgallery.sg/content/dam/visit/guides/Gallery-Guide-Map-2025-Q4-Web-20250915.pdf");
       page1.close();
    }
-
    @Test(priority = 35)
    public void menuVisitOpeningHoursTest(){
       navigationPage.goToVisitOpeningHours();
@@ -235,4 +231,168 @@ public class NavigationTest extends BaseTest{
       assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Admission & ticketing"))).isVisible();
    }
 
+   @Test(priority = 37)
+   public void menuVisitDineShopTest(){
+      navigationPage.goToVisitDineShop();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Dine & Shop"))).isVisible();
+   }
+
+   @Test(priority = 38)
+   public void menuVisitRotundaLibraryTest(){
+      navigationPage.goToVisitRotundaLibrary();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Rotunda Library & Archive").setExact(true))).isVisible();
+   }
+
+   @Test(priority = 39)
+   public void menuVisitKeppelCentreTest(){
+      navigationPage.goToVisitKeppelCentre();
+      assertThat(page.getByText("Keppel Centre for Art Education", new Page.GetByTextOptions().setExact(true)).nth(3)).isVisible();
+   }
+
+   @Test(priority = 40)
+   public void menuVisitMoreVisitorInformationTest(){
+      navigationPage.goToVisitMoreVisitorInformation();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Visitor Information"))).isVisible();
+   }
+
+   @Test(priority = 41)
+   public void menuVisitSchoolVisitTest(){
+      navigationPage.goToVisitSchoolVisit();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("School Group Visits at the"))).isVisible();
+   }
+
+   @Test(priority = 42)
+   public void menuVisitBecomeAMemberTest(){
+      navigationPage.goToVisitBecomeAMember();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Become a Gallery Member"))).isVisible();
+   }
+
+   @Test(priority = 43)
+   public void menuVisitSGCulturePassTest(){
+      navigationPage.goToVisitSGCulturePass();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("SG Culture Pass").setExact(true))).isVisible();
+   }
+
+   @Test(priority = 44)
+   public void menuAboutOurStoryTest(){
+      navigationPage.goToAboutOurStory();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Our Story"))).isVisible();
+   }
+
+   @Test(priority = 45)
+   public void menuAboutLeadershipTest(){
+      navigationPage.goToAboutLeadership();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Leadership"))).isVisible();
+   }
+
+   @Test(priority = 46)
+   public void menuAboutOurAwardsTest(){
+      navigationPage.goToAboutOurAwards();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Our Awards"))).isVisible();
+   }
+
+   @Test(priority = 47)
+   public void menuAboutMediaCentreTest(){
+      navigationPage.goToAboutMediaCentre();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Media Centre"))).isVisible();
+   }
+
+   @Test(priority = 48)
+   public void menuAboutAnnualReportsTest(){
+      navigationPage.goToAboutAnnualReports();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Annual Reports"))).isVisible();
+   }
+
+   @Test(priority = 49)
+   public void menuAboutSustainabilityTest(){
+      navigationPage.goToAboutSustainability();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Sustainability").setExact(true))).isVisible();
+   }
+
+   @Test(priority = 50)
+   public void menuAboutOurInitiativesTest(){
+      navigationPage.goToAboutOurInitiatives();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Our Initiatives &"))).isVisible();
+   }
+
+   @Test(priority = 51)
+   public void menuAboutCommunityGroupVisitsTest(){
+      navigationPage.goToAboutCommunityGroupVisits();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Community Group Visits"))).isVisible();
+   }
+
+   @Test(priority = 52)
+   public void menuAboutCareersTest(){
+      navigationPage.goToAboutCareers();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Careers & Internships"))).isVisible();
+   }
+
+   @Test(priority = 53)
+   public void menuAboutVenueRentalTest(){
+      navigationPage.goToAboutVenueRental();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Venue Rental"))).isVisible();
+   }
+
+   @Test(priority = 54)
+   public void menuAboutPhotoshootsTest(){
+      navigationPage.goToAboutPhotoshoots();
+      assertThat(page.getByLabel("Breadcrumb").getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Photoshoots & Filming"))).isVisible();
+   }
+
+   @Test(priority = 55)
+   public void menuAboutBusinessOpportunitiesTest(){
+      navigationPage.goToAboutBusinessOpportunities();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Business Opportunities"))).isVisible();
+   }
+
+   @Test(priority = 56)
+   public void menuAboutEnquiriesTest(){
+      navigationPage.goToAboutEnquiries();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Contact"))).isVisible();
+   }
+
+   @Test(priority = 57)
+   public void menuAboutWhistleblowingTest(){
+      navigationPage.goToAboutWhistleblowing();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Whistleblowing"))).isVisible();
+   }
+
+   @Test(priority = 58)
+   public void menuDonateVolunteerTest(){
+      navigationPage.goToMenuDonateVolunteer();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Donate & Volunteer"))).isVisible();
+   }
+
+   @Test(priority = 59)
+   public void menuMemberSignUpLoginTest(){
+      Page page3 = page.waitForPopup(() -> {
+         navigationPage.goToMenuMemberSignUpLogin();
+      });
+      assertThat(page3.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Log In"))).isVisible();
+      page3.close();
+   }
+
+   @Test(priority = 60)
+   public void menuVenueRentalTest(){
+      navigationPage.goToMenuVenueRental();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Venue Rental"))).isVisible();
+   }
+
+   @Test(priority = 61)
+   public void menuIAmADropdownTest(){
+      navigationPage.goToMenuDonorPatronVolunteer();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Donor, Patron, or Volunteer"))).isVisible();
+      navigationPage.goToMenuVendorBusinessPartner();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Business Opportunities"))).isVisible();
+      navigationPage.goToMenuMediaProfessional();
+      assertThat(page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Media Professional"))).isVisible();
+      navigationPage.goToMenuEventOrganiser();
+      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Event Organiser"))).isVisible();
+   }
+
+   @Test(priority = 62)
+   public void closeMainNavigationTest(){
+      navigationPage.goToCloseMainNavigation();
+      assertThat(page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Home").setExact(true))).isVisible();
+   }
 }
