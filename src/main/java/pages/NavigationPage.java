@@ -16,12 +16,7 @@ public class NavigationPage {
         this.page = page;
     }
     //<----------------------------------------------------------------------------------->
-    //page GET methods. This is not the assertion yet.
-   /* public String getHomepageUrl(){
-        return page.url();
-    }*/
 
-    //<----------------------------------------------------------------------------------->
     //page ACTION methods
     public void clickPopUpXButton(){
         Locator popUpXButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Close consent popup"));

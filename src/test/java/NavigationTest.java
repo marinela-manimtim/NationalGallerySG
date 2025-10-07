@@ -7,11 +7,22 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 //'extends' is used to establish an inheritance relationship between classes
 public class NavigationTest extends BaseTest{
 
+   //Assert Locator Visibility Helpers
+   private void assertVisible(Locator locator) {
+      assertThat(locator).isVisible();
+   }
+   private void assertVisible(Page page, AriaRole role, String name) {
+      assertVisible(page.getByRole(role, new Page.GetByRoleOptions().setName(name)));
+   }
+   private void assertVisible(Page page, AriaRole role, String name, boolean exact) {
+      assertVisible(page.getByRole(role, new Page.GetByRoleOptions().setName(name).setExact(exact)));
+   }
+
    //set test priority to temporarily set order of test execution. The order can be configured. @Todo set this config.
    @Test(priority = 1)
-   public void popUpXButtonTest(){
-       navigationPage.clickPopUpXButton();
-       assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Singapore Stories: Pathways"))).isVisible();
+   public void popUpXButtonTest() {
+      navigationPage.clickPopUpXButton();
+      assertVisible(page, AriaRole.HEADING, ("Singapore Stories: Pathways"));
    }
 
    @Test(priority = 2)
@@ -25,7 +36,7 @@ public class NavigationTest extends BaseTest{
        Page page1 = page.waitForPopup(() -> {
            navigationPage.clickMembershipLogin();
        });
-       assertThat(page1.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Log In"))).isVisible();
+       assertVisible(page1, AriaRole.BUTTON, ("Log in"));
        page1.close();
    }
 
@@ -38,361 +49,362 @@ public class NavigationTest extends BaseTest{
    @Test(priority = 5)
     public void menuIconTest(){
        navigationPage.clickMenuIcon();
-       assertThat(page.getByRole(AriaRole.MENU, new Page.GetByRoleOptions().setName("Main navigation"))).isVisible();
+       assertVisible(page, AriaRole.MENU, ("Main navigation"));
    }
 
    @Test(priority = 6)
-    public void menuFirstVisitTest(){
-       navigationPage.clickFirstVisit();
-       assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("What’s On"))).isVisible();
+   public void menuFirstVisitTest() {
+      navigationPage.clickFirstVisit();
+      assertVisible(page, AriaRole.HEADING, "What’s On");
    }
 
    @Test(priority = 7)
-    public void menuMustSeesTest(){
-       navigationPage.clickMenuIcon();
-       navigationPage.clickMustSees();
-       assertThat(page.getByRole(AriaRole.REGION, new Page.GetByRoleOptions().setName("Must-See Must-Do Panel"))).isVisible();
+   public void menuMustSeesTest() {
+      navigationPage.clickMenuIcon();
+      navigationPage.clickMustSees();
+      assertVisible(page, AriaRole.REGION, "Must-See Must-Do Panel");
    }
 
    @Test(priority = 8)
-    public void menuMustSeeWhatsOnTest(){
-       navigationPage.goToWhatsOn();
-       assertThat(page.getByRole(AriaRole.TABPANEL, new Page.GetByRoleOptions().setName("Today"))).isVisible();
+   public void menuMustSeeWhatsOnTest() {
+      navigationPage.goToWhatsOn();
+      assertVisible(page, AriaRole.TABPANEL, "Today");
    }
 
    @Test(priority = 9)
-    public void menuMustSeeExhibitionTest(){
-       navigationPage.goToWhatsOnExhibitions();
-       assertThat(page.locator("#whatsOnFilter").getByLabel("Select an option").getByText("Exhibition")).isVisible();
+   public void menuMustSeeExhibitionTest() {
+      navigationPage.goToWhatsOnExhibitions();
+      assertVisible(page.locator("#whatsOnFilter").getByLabel("Select an option").getByText("Exhibition"));
    }
 
    @Test(priority = 10)
-    public void menuMustSeeToursTest(){
-       navigationPage.goToTours();
-       assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Tours").setExact(true))).isVisible();
+   public void menuMustSeeToursTest() {
+      navigationPage.goToTours();
+      assertVisible(page, AriaRole.HEADING, "Tours", true);
    }
 
+
    @Test(priority = 11)
-    public void menuMustSeeOurCollectionsTest(){
-       navigationPage.goToMustSeeOurCollections();
-       assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("The World’s Largest"))).isVisible();
+   public void menuMustSeeOurCollectionsTest() {
+      navigationPage.goToMustSeeOurCollections();
+      assertVisible(page, AriaRole.HEADING, "The World’s Largest");
    }
 
    @Test(priority = 12)
-    public void menuMustSeeAGuideForFamiliesTest(){
-       navigationPage.goToAGuideForFamilies();
-       assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("A Guide for Families Visiting"))).isVisible();
+   public void menuMustSeeAGuideForFamiliesTest() {
+      navigationPage.goToAGuideForFamilies();
+      assertVisible(page, AriaRole.HEADING, "A Guide for Families Visiting");
    }
 
    @Test(priority = 13)
-    public void menuMustSeeFeaturedExhibitionTest(){
-       navigationPage.goToMustSeeFeaturedExhibition();
-       assertThat(page.getByRole(AriaRole.NAVIGATION, new Page.GetByRoleOptions().setName("Breadcrumb"))).isVisible();
+   public void menuMustSeeFeaturedExhibitionTest() {
+      navigationPage.goToMustSeeFeaturedExhibition();
+      assertVisible(page, AriaRole.NAVIGATION, "Breadcrumb");
    }
 
    @Test(priority = 14)
-   public void menuOUrCollectionsTest(){
+   public void menuOurCollectionsTest() {
       navigationPage.goToOurCollections();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("The World’s Largest"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "The World’s Largest");
    }
 
    @Test(priority = 15)
-   public void menuOurArchitectureTest(){
+   public void menuOurArchitectureTest() {
       navigationPage.goToOurArchitecture();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Our Architecture & History"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Our Architecture & History");
    }
 
    @Test(priority = 16)
-   public void menuLearnAboutArtTest(){
+   public void menuLearnAboutArtTest() {
       navigationPage.goToLearnAboutArt();
-      assertThat(page.getByRole(AriaRole.MENU, new Page.GetByRoleOptions().setName("Main navigation"))).isVisible();
+      assertVisible(page, AriaRole.MENU, "Main navigation");
    }
 
    @Test(priority = 17)
-   public void menuArtworkOfTheDayTest(){
+   public void menuArtworkOfTheDayTest() {
       navigationPage.goToArtworkOfTheDay();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Artwork Details"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Artwork Details");
    }
 
    @Test(priority = 18)
-   public void menuIntroToArtTest(){
+   public void menuIntroToArtTest() {
       navigationPage.goToIntroToArt();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Intro to Art"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Intro to Art");
    }
 
    @Test(priority = 19)
-   public void menuArtAtHomeTest(){
+   public void menuArtAtHomeTest() {
       navigationPage.goToArtAtHome();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Art at Home for Families"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Art at Home for Families");
    }
 
    @Test(priority = 20)
-   public void menuAudioToursTest(){
+   public void menuAudioToursTest() {
       navigationPage.goToAudioTours();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Audio Tours & Guides"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Audio Tours & Guides");
    }
 
    @Test(priority = 21)
-   public void menuArtConservationTest(){
+   public void menuArtConservationTest() {
       navigationPage.goToArtConservation();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Art Conservation"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Art Conservation");
    }
 
    @Test(priority = 22)
-   public void menuPublicationsTest(){
+   public void menuPublicationsTest() {
       navigationPage.goToPublications();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Publications").setExact(true))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Publications", true);
    }
 
    @Test(priority = 23)
-   public void menuPerspectivesMagazineTest(){
+   public void menuPerspectivesMagazineTest() {
       navigationPage.goToPerspectivesMagazine();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Perspectives Magazine"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Perspectives Magazine");
    }
 
    @Test(priority = 24)
-   public void menuOnlineArtCoursesTest(){
+   public void menuOnlineArtCoursesTest() {
       navigationPage.goToOnlineArtCourses();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Online Art Courses"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Online Art Courses");
    }
 
    @Test(priority = 25)
-   public void menuCuratorialResearchTest(){
+   public void menuCuratorialResearchTest() {
       navigationPage.goToCuratorialResearch();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Curatorial Research"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Curatorial Research");
    }
 
    @Test(priority = 26)
-   public void menuVisitWhatsOnTest(){
+   public void menuVisitWhatsOnTest() {
       navigationPage.goToVisitWhatsOn();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("What’s On"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "What’s On");
    }
 
    @Test(priority = 27)
-   public void menuVisitViewAllExhibitionsTest(){
+   public void menuVisitViewAllExhibitionsTest() {
       navigationPage.goToVisitViewAllExhibitions();
-      assertThat(page.locator("#whatsOnFilter").getByLabel("Select an option").getByText("Exhibition")).isVisible();
+      assertVisible(page.locator("#whatsOnFilter").getByLabel("Select an option").getByText("Exhibition"));
    }
 
    @Test(priority = 28)
-   public void menuVisitGuidedToursTest(){
+   public void menuVisitGuidedToursTest() {
       navigationPage.goToVisitGuidedTours();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Guided tours").setExact(true))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Guided tours", true);
    }
 
    @Test(priority = 29)
-   public void menuVisitSelfGuidedToursTest(){
+   public void menuVisitSelfGuidedToursTest() {
       navigationPage.goToVisitSelfGuidedTours();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Self-guided tours"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Self-guided tours");
    }
 
    @Test(priority = 30)
-   public void menuVisitAudioToursTest(){
+   public void menuVisitAudioToursTest() {
       navigationPage.goToVisitAudioTours();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Audio Tours & Guides"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Audio Tours & Guides");
    }
 
    @Test(priority = 31)
-   public void menuVisitViewAllToursTest(){
+   public void menuVisitViewAllToursTest() {
       navigationPage.goToVisitViewAllTours();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Tours").setExact(true))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Tours", true);
    }
 
    @Test(priority = 32)
-   public void menuVisitFamilyGuideTest(){
+   public void menuVisitFamilyGuideTest() {
       navigationPage.goToVisitFamilyGuide();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("A Guide for Families Visiting"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "A Guide for Families Visiting");
    }
 
    @Test(priority = 33)
-   public void menuVisitAccessibilityTest(){
+   public void menuVisitAccessibilityTest() {
       navigationPage.goToVisitAccessibility();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Accessibility at the Gallery"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Accessibility at the Gallery");
    }
 
-   //@Todo implement TimeoutError https://playwright.dev/docs/api/class-timeouterror
    @Test(priority = 34)
-   public void menuVisitGalleryGuideMapTest(){
-      Page page1 = page.waitForPopup(() -> {
-         navigationPage.goToVisitGalleryGuideMap();
-      });
+   public void menuVisitGalleryGuideMapTest() {
+      Page page1 = page.waitForPopup(navigationPage::goToVisitGalleryGuideMap);
       assertThat(page1).hasURL("https://www.nationalgallery.sg/content/dam/visit/guides/Gallery-Guide-Map-2025-Q4-Web-20250915.pdf");
       page1.close();
    }
+
    @Test(priority = 35)
-   public void menuVisitOpeningHoursTest(){
+   public void menuVisitOpeningHoursTest() {
       navigationPage.goToVisitOpeningHours();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Opening hours"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Opening hours");
    }
 
    @Test(priority = 36)
-   public void menuVisitAdmissionTicketingTest(){
+   public void menuVisitAdmissionTicketingTest() {
       navigationPage.goToVisitAdmissionTicketing();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Admission & ticketing"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Admission & ticketing");
    }
 
    @Test(priority = 37)
-   public void menuVisitDineShopTest(){
+   public void menuVisitDineShopTest() {
       navigationPage.goToVisitDineShop();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Dine & Shop"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Dine & Shop");
    }
 
    @Test(priority = 38)
-   public void menuVisitRotundaLibraryTest(){
+   public void menuVisitRotundaLibraryTest() {
       navigationPage.goToVisitRotundaLibrary();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Rotunda Library & Archive").setExact(true))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Rotunda Library & Archive", true);
    }
 
    @Test(priority = 39)
-   public void menuVisitKeppelCentreTest(){
+   public void menuVisitKeppelCentreTest() {
       navigationPage.goToVisitKeppelCentre();
-      assertThat(page.getByText("Keppel Centre for Art Education", new Page.GetByTextOptions().setExact(true)).nth(3)).isVisible();
+      assertVisible(page.getByText("Keppel Centre for Art Education", new Page.GetByTextOptions().setExact(true)).nth(3));
    }
 
    @Test(priority = 40)
-   public void menuVisitMoreVisitorInformationTest(){
+   public void menuVisitMoreVisitorInformationTest() {
       navigationPage.goToVisitMoreVisitorInformation();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Visitor Information"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Visitor Information");
    }
 
    @Test(priority = 41)
-   public void menuVisitSchoolVisitTest(){
+   public void menuVisitSchoolVisitTest() {
       navigationPage.goToVisitSchoolVisit();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("School Group Visits at the"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "School Group Visits at the");
    }
 
    @Test(priority = 42)
-   public void menuVisitBecomeAMemberTest(){
+   public void menuVisitBecomeAMemberTest() {
       navigationPage.goToVisitBecomeAMember();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Become a Gallery Member"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Become a Gallery Member");
    }
 
    @Test(priority = 43)
-   public void menuVisitSGCulturePassTest(){
+   public void menuVisitSGCulturePassTest() {
       navigationPage.goToVisitSGCulturePass();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("SG Culture Pass").setExact(true))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "SG Culture Pass", true);
    }
 
    @Test(priority = 44)
-   public void menuAboutOurStoryTest(){
+   public void menuAboutOurStoryTest() {
       navigationPage.goToAboutOurStory();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Our Story"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Our Story");
    }
 
    @Test(priority = 45)
-   public void menuAboutLeadershipTest(){
+   public void menuAboutLeadershipTest() {
       navigationPage.goToAboutLeadership();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Leadership"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Leadership");
    }
 
    @Test(priority = 46)
-   public void menuAboutOurAwardsTest(){
+   public void menuAboutOurAwardsTest() {
       navigationPage.goToAboutOurAwards();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Our Awards"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Our Awards");
    }
 
    @Test(priority = 47)
-   public void menuAboutMediaCentreTest(){
+   public void menuAboutMediaCentreTest() {
       navigationPage.goToAboutMediaCentre();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Media Centre"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Media Centre");
    }
 
    @Test(priority = 48)
-   public void menuAboutAnnualReportsTest(){
+   public void menuAboutAnnualReportsTest() {
       navigationPage.goToAboutAnnualReports();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Annual Reports"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Annual Reports");
    }
 
    @Test(priority = 49)
-   public void menuAboutSustainabilityTest(){
+   public void menuAboutSustainabilityTest() {
       navigationPage.goToAboutSustainability();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Sustainability").setExact(true))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Sustainability", true);
    }
 
    @Test(priority = 50)
-   public void menuAboutOurInitiativesTest(){
+   public void menuAboutOurInitiativesTest() {
       navigationPage.goToAboutOurInitiatives();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Our Initiatives &"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Our Initiatives &");
    }
 
    @Test(priority = 51)
-   public void menuAboutCommunityGroupVisitsTest(){
+   public void menuAboutCommunityGroupVisitsTest() {
       navigationPage.goToAboutCommunityGroupVisits();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Community Group Visits"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Community Group Visits");
    }
 
    @Test(priority = 52)
-   public void menuAboutCareersTest(){
+   public void menuAboutCareersTest() {
       navigationPage.goToAboutCareers();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Careers & Internships"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Careers & Internships");
    }
 
    @Test(priority = 53)
-   public void menuAboutVenueRentalTest(){
+   public void menuAboutVenueRentalTest() {
       navigationPage.goToAboutVenueRental();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Venue Rental"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Venue Rental");
    }
 
    @Test(priority = 54)
-   public void menuAboutPhotoshootsTest(){
+   public void menuAboutPhotoshootsTest() {
       navigationPage.goToAboutPhotoshoots();
-      assertThat(page.getByLabel("Breadcrumb").getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Photoshoots & Filming"))).isVisible();
+      assertVisible(page.getByLabel("Breadcrumb").getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Photoshoots & Filming")));
    }
 
    @Test(priority = 55)
-   public void menuAboutBusinessOpportunitiesTest(){
+   public void menuAboutBusinessOpportunitiesTest() {
       navigationPage.goToAboutBusinessOpportunities();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Business Opportunities"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Business Opportunities");
    }
 
    @Test(priority = 56)
-   public void menuAboutEnquiriesTest(){
+   public void menuAboutEnquiriesTest() {
       navigationPage.goToAboutEnquiries();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Contact"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Contact");
    }
 
    @Test(priority = 57)
-   public void menuAboutWhistleblowingTest(){
+   public void menuAboutWhistleblowingTest() {
       navigationPage.goToAboutWhistleblowing();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Whistleblowing"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Whistleblowing");
    }
 
    @Test(priority = 58)
-   public void menuDonateVolunteerTest(){
+   public void menuDonateVolunteerTest() {
       navigationPage.goToMenuDonateVolunteer();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Donate & Volunteer"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Donate & Volunteer");
    }
 
    @Test(priority = 59)
-   public void menuMemberSignUpLoginTest(){
-      Page page3 = page.waitForPopup(() -> {
-         navigationPage.goToMenuMemberSignUpLogin();
-      });
-      assertThat(page3.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Log In"))).isVisible();
+   public void menuMemberSignUpLoginTest() {
+      Page page3 = page.waitForPopup(navigationPage::goToMenuMemberSignUpLogin);
+      assertVisible(page3, AriaRole.BUTTON, "Log In");
       page3.close();
    }
 
    @Test(priority = 60)
-   public void menuVenueRentalTest(){
+   public void menuVenueRentalTest() {
       navigationPage.goToMenuVenueRental();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Venue Rental"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Venue Rental");
    }
 
    @Test(priority = 61)
-   public void menuIAmADropdownTest(){
+   public void menuIAmADropdownTest() {
       navigationPage.goToMenuDonorPatronVolunteer();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Donor, Patron, or Volunteer"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Donor, Patron, or Volunteer");
+
       navigationPage.goToMenuVendorBusinessPartner();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Business Opportunities"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Business Opportunities");
+
       navigationPage.goToMenuMediaProfessional();
-      assertThat(page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Media Professional"))).isVisible();
+      assertVisible(page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Media Professional")));
+
       navigationPage.goToMenuEventOrganiser();
-      assertThat(page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setName("Event Organiser"))).isVisible();
+      assertVisible(page, AriaRole.HEADING, "Event Organiser");
    }
 
    @Test(priority = 62)
-   public void closeMainNavigationTest(){
+   public void closeMainNavigationTest() {
       navigationPage.goToCloseMainNavigation();
-      assertThat(page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Home").setExact(true))).isVisible();
+      assertVisible(page, AriaRole.LINK, "Home", true);
    }
+
 }
