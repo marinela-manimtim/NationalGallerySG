@@ -224,9 +224,9 @@ public class NavigationTest extends BaseTest{
 
    @Test(priority = 34)
    public void menuVisitGalleryGuideMapTest() {
-      Page page1 = page.waitForPopup(navigationPage::goToVisitGalleryGuideMap);
-      assertThat(page1).hasURL("https://www.nationalgallery.sg/content/dam/visit/guides/Gallery-Guide-Map-2025-Q4-Web-20250915.pdf");
-      page1.close();
+      Page guideMapPdf = page.waitForPopup(navigationPage::goToVisitGalleryGuideMap);
+      assertThat(guideMapPdf).hasURL("https://www.nationalgallery.sg/content/dam/visit/guides/Gallery-Guide-Map-2025-Q4-Web-20250915.pdf");
+      guideMapPdf.close();
    }
 
    @Test(priority = 35)
