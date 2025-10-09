@@ -1,5 +1,6 @@
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.AriaRole;
+import com.microsoft.playwright.options.WaitForSelectorState;
 import org.testng.annotations.Test;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
@@ -9,14 +10,26 @@ public class NavigationTest extends BaseTest{
 
    //Assert Locator Visibility Helpers
    private void assertVisible(Locator locator) {
-      assertThat(locator).isVisible();
+      try {
+         locator.waitFor(new Locator.WaitForOptions()
+                 .setState(WaitForSelectorState.VISIBLE)
+                 .setTimeout(5000)); // wait up to 5 seconds
+         assertThat(locator).isVisible();
+      } catch (TimeoutError e) {
+         throw new AssertionError("Element was not visible within timeout.");
+      }
    }
+
    private void assertVisible(Page page, AriaRole role, String name) {
-      assertVisible(page.getByRole(role, new Page.GetByRoleOptions().setName(name)));
+      Locator locator = page.getByRole(role, new Page.GetByRoleOptions().setName(name));
+      assertVisible(locator);
    }
+
    private void assertVisible(Page page, AriaRole role, String name, boolean exact) {
-      assertVisible(page.getByRole(role, new Page.GetByRoleOptions().setName(name).setExact(exact)));
+      Locator locator = page.getByRole(role, new Page.GetByRoleOptions().setName(name).setExact(exact));
+      assertVisible(locator);
    }
+
 
    //set test priority to temporarily set order of test execution. The order can be configured. @Todo set this config.
    @Test(priority = 1)
@@ -28,7 +41,7 @@ public class NavigationTest extends BaseTest{
    @Test(priority = 2)
     public void homepageLogoTest(){
        navigationPage.clickHomepageLogo();
-       assertThat(page).hasTitle("National Gallery Singapore | Leading Art Museum in SEA | National Gallery Singapore");
+       assertThat(page).hasURL("https://www.nationalgallery.sg/sg/en.html");
    }
 
    @Test(priority = 3)

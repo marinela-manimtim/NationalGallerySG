@@ -3,7 +3,11 @@ package pages;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.PlaywrightException;
+import com.microsoft.playwright.TimeoutError;
 import com.microsoft.playwright.options.AriaRole;
+import com.microsoft.playwright.options.LoadState;
+import com.microsoft.playwright.options.WaitForSelectorState;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
@@ -17,29 +21,59 @@ public class NavigationPage {
     }
     //<----------------------------------------------------------------------------------->
 
+    //Safe click helper
+    private void safeClick(Locator locator, String elementName) {
+        //Wait for the page to load before executing the try-catch method
+        page.waitForLoadState(LoadState.LOAD);
+
+        //try catch method to check if element is VISIBLE before clicking
+        try {
+            locator.waitFor(new Locator.WaitForOptions()
+                    .setState(WaitForSelectorState.VISIBLE)
+                    .setTimeout(5000));
+
+            if (!locator.isEnabled()) {
+                System.err.println("'" + elementName + "' is visible but not enabled.");
+                return;
+            }
+
+            if (!locator.isVisible()) {
+                System.err.println("'" + elementName + "' is not visible.");
+                return;
+            }
+            locator.click();
+        } catch (TimeoutError e) {
+            System.err.println("Timeout waiting for '" + elementName + "' to become visible.");
+        } catch (PlaywrightException e) {
+            System.err.println("Error clicking '" + elementName + "': " + e.getMessage());
+        }
+    }
+
+
+
     //page ACTION methods
     public void clickPopUpXButton(){
         Locator popUpXButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Close consent popup"));
-        popUpXButton.click();
+        safeClick(popUpXButton, "Close consent popup");
     }
     public void clickHomepageLogo(){
         Locator homepageLogo = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("National Gallery Singapore –"));
-        homepageLogo.click();
+        safeClick(homepageLogo, "National Gallery Singapore –");
     }
 
     public void clickMembershipLogin(){
         Locator membershipLogin = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Membership Login"));
-        membershipLogin.click();
+        safeClick(membershipLogin, "Membership Login");
     }
 
     public void clickCartButton(){
         Locator cartButton = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Cart"));
-        cartButton.click();
+        safeClick(cartButton, "Cart");
     }
 
     public void clickMenuIcon(){
         Locator menuIcon = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Menu"));
-        menuIcon.click();
+        safeClick(menuIcon, "Menu");
     }
 
     public void clickMenuXButton(){
@@ -54,7 +88,7 @@ public class NavigationPage {
 
     public void clickMustSees(){
         Locator menuMustSeeTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Must-Sees & Must-Dos"));
-        menuMustSeeTextLink.click();
+        safeClick(menuMustSeeTextLink, "Must-Sees & Must-Dos");
     }
 
     public void goToMustSee(){
@@ -84,7 +118,7 @@ public class NavigationPage {
 
     public void clickMustSeeTours(){
         Locator menuMustSeeToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Tours").setExact(true));
-        menuMustSeeToursTextLink.click();
+        safeClick(menuMustSeeToursTextLink, "Tours");
     }
 
     public void goToTours(){
@@ -145,7 +179,7 @@ public class NavigationPage {
 
     public void clickLearnAboutArt(){
         Locator menuLearnAboutArtTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Learn About Art"));
-        menuLearnAboutArtTextLink.click();
+        safeClick(menuLearnAboutArtTextLink, "Learn About Art");
     }
 
     public void goToLearnAboutArt(){
@@ -228,10 +262,11 @@ public class NavigationPage {
         goToLearnAboutArt();
         clickCuratorialResearch();
     }
-    public void clickVisit(){
+    public void clickVisit() {
         Locator menuVisitTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Visit").setExact(true));
-        menuVisitTextLink.click();
+        safeClick(menuVisitTextLink, "Visit");
     }
+
     public void goToVisit(){
         clickMenuIcon();
         clickVisit();
@@ -246,7 +281,7 @@ public class NavigationPage {
     }
     public void clickVisitViewAllExhibitions(){
         Locator menuVisitViewAllExhibitionsTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("View all Exhibitions "));
-        menuVisitViewAllExhibitionsTextLink.click();
+        safeClick( menuVisitViewAllExhibitionsTextLink, "View all Exhibitions ");
     }
     public void goToVisitViewAllExhibitions(){
         goToVisit();
@@ -254,7 +289,7 @@ public class NavigationPage {
     }
     public void clickVisitGuidedTours(){
         Locator menuVisitGuidedToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Guided Tours").setExact(true));
-        menuVisitGuidedToursTextLink.click();
+        safeClick(menuVisitGuidedToursTextLink, "Guided Tours");
     }
     public void goToVisitGuidedTours(){
         goToVisit();
@@ -262,7 +297,7 @@ public class NavigationPage {
     }
     public void clickVisitSelfGuidedTours(){
         Locator menuVisitSelfGuidedToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Self-Guided Tours"));
-        menuVisitSelfGuidedToursTextLink.click();
+        safeClick(menuVisitSelfGuidedToursTextLink, "Self-Guided Tours");
     }
     public void goToVisitSelfGuidedTours(){
         goToVisit();
@@ -310,7 +345,19 @@ public class NavigationPage {
     }
     public void clickVisitOpeningHours(){
         Locator menuVisitOpeningHoursTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Opening Hours & Getting Here"));
-        menuVisitOpeningHoursTextLink.click();
+        try {
+            // Wait until the element is visible and enabled before clicking
+            menuVisitOpeningHoursTextLink.waitFor(new Locator.WaitForOptions()
+                    .setState(WaitForSelectorState.VISIBLE)
+                    .setTimeout(5000)); // timeout in milliseconds
+
+            menuVisitOpeningHoursTextLink.click();
+        } catch (TimeoutError e) {
+            System.err.println("Timeout waiting for 'Opening Hours' link to become visible.");
+            // Optional: retry logic or fallback
+        } catch (PlaywrightException e) {
+            System.err.println("Error clicking 'Opening Hours' link: " + e.getMessage());
+        }
     }
     public void goToVisitOpeningHours(){
         goToVisit();

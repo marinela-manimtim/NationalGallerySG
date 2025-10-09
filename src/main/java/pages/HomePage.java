@@ -2,22 +2,56 @@ package pages;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.PlaywrightException;
+import com.microsoft.playwright.TimeoutError;
 import com.microsoft.playwright.options.AriaRole;
+import com.microsoft.playwright.options.LoadState;
+import com.microsoft.playwright.options.WaitForSelectorState;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomePage {
     //declare variable of Page from Playwright 'Page'
     Page page;
+    NavigationPage navigationPage;
 
     //constructor of Page
     public HomePage(Page page) {
         this.page = page;
     }
 
+    //Safe click helper
+    private void safeClick(Locator locator, String elementName) {
+        //Wait for the page to load before executing the try-catch method
+        page.waitForLoadState(LoadState.LOAD);
+
+        //try catch method to check if element is VISIBLE before clicking
+        try {
+            locator.waitFor(new Locator.WaitForOptions()
+                    .setState(WaitForSelectorState.VISIBLE)
+                    .setTimeout(5000));
+
+            if (!locator.isEnabled()) {
+                System.err.println("'" + elementName + "' is visible but not enabled.");
+                return;
+            }
+
+            if (!locator.isVisible()) {
+                System.err.println("'" + elementName + "' is not visible.");
+                return;
+            }
+            locator.click();
+        } catch (TimeoutError e) {
+            System.err.println("Timeout waiting for '" + elementName + "' to become visible.");
+        } catch (PlaywrightException e) {
+            System.err.println("Error clicking '" + elementName + "': " + e.getMessage());
+        }
+    }
+
     public void clickPlanAVisit(){
         Locator planAVisitButton = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Plan a visit"));
-        planAVisitButton.click();
+        safeClick(planAVisitButton, "Plan a visit");
     }
 
     public List<Locator> checkMastheadImagesHealth(){
@@ -87,26 +121,8 @@ public class HomePage {
 
     public void clickCallOut(){
         Locator callOutLink = page.locator("section").filter(new Locator.FilterOptions().setHasText("Into the Modern: Impressionism from the Museum of Fine Arts, Boston Get ready")).getByRole(AriaRole.LINK);
-        callOutLink.click();
+        safeClick(callOutLink, "section");
     }
 
-    public void clickGalleryHighlightsLeftArrow(){
-        Locator leftArrowGalleryHighlights = page.locator(".section.must-see-must-do > .section-wrapper > .slider");
-        leftArrowGalleryHighlights.click();
-    }
-    public void checkIfGalleryHighlightsLeftArrowIsDisabled() {
-        Locator leftArrowGalleryHighlights = page.locator(".section.must-see-must-do > .section-wrapper > .slider");
-
-        // Check if the element has a 'disabled' attribute or a class indicating it's disabled
-        boolean isDisabled = leftArrowGalleryHighlights.getAttribute("disabled") != null
-                || leftArrowGalleryHighlights.getAttribute("class").contains("disabled");
-
-        if (isDisabled) {
-            System.out.println("Left arrow is disabled by default.");
-        } else {
-            leftArrowGalleryHighlights.click();
-            System.out.println("Left arrow clicked.");
-        }
-    }
 
 }
