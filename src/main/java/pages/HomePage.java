@@ -14,9 +14,8 @@ import java.util.List;
 public class HomePage {
     //declare variable of Page from Playwright 'Page'
     Page page;
-    NavigationPage navigationPage;
 
-    //constructor of Page
+    //page constructor allows this class to use the Page object for browser interactions.
     public HomePage(Page page) {
         this.page = page;
     }

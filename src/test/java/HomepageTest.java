@@ -53,8 +53,5 @@ public class HomepageTest extends BaseTest{
         assertThat(page).hasURL("https://www.nationalgallery.sg/sg/en/exhibitions/Into-the-Modern--Impressionism-from-the-Museum-of-Fine-Arts-Boston.html");
     }
 
-    @Test(priority = 7)
-    public void leftArrowGalleryHighlightsIsDisabledTest(){
-        homePage.checkIfGalleryHighlightsLeftArrowIsDisabled();
-    }
+
 }

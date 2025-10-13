@@ -15,11 +15,10 @@ public class NavigationPage {
     //declare variable for Playwright Page
     Page page;
 
-    //page constructor
+    //page constructor allows this class to use the Page object for browser interactions.
     public NavigationPage (Page page){
         this.page = page;
     }
-    //<----------------------------------------------------------------------------------->
 
     //Safe click helper
     private void safeClick(Locator locator, String elementName) {
@@ -617,6 +616,15 @@ public class NavigationPage {
     }
     public void goToCloseMainNavigation(){
         clickMainNavigationXButton();
+    }
+
+    public void clickGetATicketOnItsOwn(){
+        Locator getATicketOnItsOwnTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("get a ticket on its own"));
+        safeClick(getATicketOnItsOwnTextLink, "get a ticket on its own");
+    }
+    public void goToDirectPurchase(){
+        clickCartButton();
+        clickGetATicketOnItsOwn();
     }
 }
 

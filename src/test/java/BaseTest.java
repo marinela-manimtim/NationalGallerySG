@@ -2,6 +2,7 @@ import Factory.PlaywrightFactory;
 import com.microsoft.playwright.Page;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import pages.CartPage;
 import pages.HomePage;
 import pages.NavigationPage;
 
@@ -17,6 +18,7 @@ public class BaseTest {
     Properties prop;
     protected NavigationPage navigationPage;
     protected HomePage homePage;
+    protected CartPage cartPage;
 
     @BeforeTest
     public void launchBrowser() throws IOException {
@@ -25,6 +27,7 @@ public class BaseTest {
         page = pf.initBrowser(prop);
         navigationPage = new NavigationPage(page);
         homePage = new HomePage(page);
+        cartPage = new CartPage(page);
     }
 
     @AfterTest
