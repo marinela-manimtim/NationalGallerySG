@@ -1,3 +1,4 @@
+import Constants.SiteConstants;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
@@ -20,24 +21,24 @@ public class HomepageTest extends BaseTest{
     @Test(priority = 1)
     public void popUpXButtonTest() {
         navigationPage.clickPopUpXButton();
-        assertVisible(page, AriaRole.HEADING, ("Singapore Stories: Pathways"));
+        assertVisible(page, AriaRole.HEADING, SiteConstants.POPUP_X_HEADING);
     }
 
     @Test(priority = 2)
     public void mastheadImageTest(){
         navigationPage.clickHomepageLogo();
-        assertVisible(page, AriaRole.HEADING, "EXPERIENCE ART  YOUR  WAY");
+        assertVisible(page, AriaRole.HEADING, SiteConstants.MASTHEAD_HEADING);
     }
 
     @Test(priority = 3)
     public void openingHoursTest(){
-        assertVisible(page.getByText("Open daily, 10am – 7pm").first());
+        assertVisible(page.getByText(SiteConstants.OPENING_HOURS).first());
     }
 
     @Test(priority = 4)
     public void planAVisitTest(){
         homePage.clickPlanAVisit();
-        assertVisible(page, AriaRole.HEADING, "Visitor Information");
+        assertVisible(page, AriaRole.HEADING, SiteConstants.VISITOR_INFORMATION_HEADING);
         navigationPage.clickHomepageLogo();
     }
 
@@ -50,7 +51,7 @@ public class HomepageTest extends BaseTest{
     @Test(priority = 6)
     public void callOutTest(){
         homePage.clickCallOut();
-        assertThat(page).hasURL("https://www.nationalgallery.sg/sg/en/exhibitions/Into-the-Modern--Impressionism-from-the-Museum-of-Fine-Arts-Boston.html");
+        assertThat(page).hasURL(prop.getProperty("callOutUrl"));
     }
 
 

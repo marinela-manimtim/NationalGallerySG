@@ -1,3 +1,4 @@
+import Constants.SiteConstants;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.WaitForSelectorState;
@@ -35,13 +36,14 @@ public class NavigationTest extends BaseTest{
    @Test(priority = 1)
    public void popUpXButtonTest() {
       navigationPage.clickPopUpXButton();
-      assertVisible(page, AriaRole.HEADING, ("Singapore Stories: Pathways"));
+      assertVisible(page, AriaRole.HEADING, SiteConstants.POPUP_X_HEADING);
    }
 
    @Test(priority = 2)
     public void homepageLogoTest(){
+      navigationPage.clickPopUpXButton();
        navigationPage.clickHomepageLogo();
-       assertThat(page).hasURL("https://www.nationalgallery.sg/sg/en.html");
+       assertThat(page).hasURL(prop.getProperty("homepageLogoUrl"));
    }
 
    @Test(priority = 3)
@@ -49,26 +51,26 @@ public class NavigationTest extends BaseTest{
        Page page1 = page.waitForPopup(() -> {
            navigationPage.clickMembershipLogin();
        });
-       assertVisible(page1, AriaRole.BUTTON, ("Log in"));
+       assertVisible(page1, AriaRole.BUTTON, SiteConstants.MEMBERSHIP_LOGIN_BUTTON);
        page1.close();
    }
 
    @Test(priority = 4)
     public void cartButtonTest(){
        navigationPage.clickCartButton();
-       assertThat(page).hasTitle("Cart | National Gallery Singapore");
+       assertThat(page).hasTitle(SiteConstants.CART_PAGE_TITLE);
    }
 
    @Test(priority = 5)
     public void menuIconTest(){
        navigationPage.clickMenuIcon();
-       assertVisible(page, AriaRole.MENU, ("Main navigation"));
+       assertVisible(page, AriaRole.MENU, SiteConstants.MENU_ARIA_LABEL);
    }
 
    @Test(priority = 6)
    public void menuFirstVisitTest() {
       navigationPage.clickFirstVisit();
-      assertVisible(page, AriaRole.HEADING, "What’s On");
+      assertVisible(page, AriaRole.HEADING, SiteConstants.WHATS_ON_PAGE_HEADING);
    }
 
    @Test(priority = 7)

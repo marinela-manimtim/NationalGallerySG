@@ -12,10 +12,12 @@ import java.util.Properties;
 public class BaseTest {
     //declare variable for Playwright Page
     //declare variable for PlaywrightFactory Page to call methods inside the class
+    //declare variable for Properties to call prop
     //declare variable for NavigationPage to call methods inside the page class
     Page page;
     PlaywrightFactory pf;
     Properties prop;
+
     protected NavigationPage navigationPage;
     protected HomePage homePage;
     protected CartPage cartPage;

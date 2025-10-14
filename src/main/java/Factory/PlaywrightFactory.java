@@ -18,7 +18,7 @@ public class PlaywrightFactory {
 
     //declare variable for new browser page
     Page page;
-    //declare variable for Properties java;
+    //declare variable for Properties from file input stream;
     Properties prop;
     //Initialize or open the browser
     public Page initBrowser(Properties prop){
@@ -41,6 +41,10 @@ public class PlaywrightFactory {
                 browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
                 break;
 
+            case "safari":
+                browser = playwright.webkit().launch(new BrowserType.LaunchOptions().setHeadless(false));
+                break;
+
             default:
                 System.out.println("Pass a correct browser name.");
                 break;
@@ -58,7 +62,7 @@ public class PlaywrightFactory {
     //this method is used to initialize the properties from config.properties
     public Properties initProp() throws IOException {
         try {
-            FileInputStream ip = new FileInputStream("src/test/resources/config.properties");
+            FileInputStream ip = new FileInputStream("src/test/resources/Config/config.properties");
             prop = new Properties();
             prop.load(ip);
         } catch (FileNotFoundException e) {

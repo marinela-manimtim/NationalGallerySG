@@ -1,0 +1,4 @@
+
+Playwright runs on GraalVM. Set your JAVA_HOME to graalvm's path (excluding the bin folder)
+Install mvn and run mvn -version
+
