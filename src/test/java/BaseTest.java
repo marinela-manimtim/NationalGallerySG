@@ -3,6 +3,7 @@ import com.microsoft.playwright.Page;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import pages.CartPage;
+import pages.DirectPurchasePage;
 import pages.HomePage;
 import pages.NavigationPage;
 
@@ -14,13 +15,14 @@ public class BaseTest {
     //declare variable for PlaywrightFactory Page to call methods inside the class
     //declare variable for Properties to call prop
     //declare variable for NavigationPage to call methods inside the page class
-    Page page;
-    PlaywrightFactory pf;
+    protected Page page;
+    protected PlaywrightFactory pf;
     Properties prop;
 
     protected NavigationPage navigationPage;
     protected HomePage homePage;
     protected CartPage cartPage;
+    protected DirectPurchasePage directPurchasePage;
 
     @BeforeTest
     public void launchBrowser() throws IOException {
@@ -30,6 +32,8 @@ public class BaseTest {
         navigationPage = new NavigationPage(page);
         homePage = new HomePage(page);
         cartPage = new CartPage(page);
+        directPurchasePage = new DirectPurchasePage(page);
+        System.out.println("NavigationPage initialized: " + navigationPage);
     }
 
     @AfterTest

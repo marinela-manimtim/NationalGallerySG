@@ -83,6 +83,30 @@ public class HomePage {
         return healthyImages;
     }
 
+    public boolean hasImageErrors(){
+        Locator allContainers = page.locator(".banner-legend-thumbnail > div");
+        int containerCount = allContainers.count();
+
+        for (int i = 0; i < containerCount; i++) {
+            Locator container = allContainers.nth(i);
+            Locator video = container.locator("img");
+
+            // Skip if no <video> element is found
+            if (video.count() == 0) {
+                continue;
+            }
+
+            Boolean hasError = (Boolean) video.evaluate(
+                    "el => el instanceof HTMLImageElement && (!el.complete || el.naturalWidth === 0)"
+            );
+
+            if (Boolean.TRUE.equals(hasError)) {
+                return true; // Found at least one error
+            }
+        }
+        return false; // No errors found
+    }
+
     public List<Locator> checkMastheadVideosHealth() {
         List<Locator> healthyVideos = new ArrayList<>();
         Locator allContainers = page.locator(".banner-legend-thumbnail > div");
@@ -116,6 +140,30 @@ public class HomePage {
         }
 
         return healthyVideos;
+    }
+
+    public boolean hasVideoErrors() {
+        Locator allContainers = page.locator(".banner-legend-thumbnail > div");
+        int containerCount = allContainers.count();
+
+        for (int i = 0; i < containerCount; i++) {
+            Locator container = allContainers.nth(i);
+            Locator video = container.locator("video");
+
+            // Skip if no <video> element is found
+            if (video.count() == 0) {
+                continue;
+            }
+
+            Boolean hasError = (Boolean) video.evaluate(
+                    "el => el instanceof HTMLVideoElement && el.error !== null && el.error.code !== 0"
+            );
+
+            if (Boolean.TRUE.equals(hasError)) {
+                return true; // Found at least one error
+            }
+        }
+        return false; // No errors found
     }
 
     public void clickCallOut(){

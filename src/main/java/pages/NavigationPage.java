@@ -1,15 +1,11 @@
 //This is the Object Repository of Navigation
 package pages;
 
-import com.microsoft.playwright.Locator;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.PlaywrightException;
-import com.microsoft.playwright.TimeoutError;
+import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.LoadState;
 import com.microsoft.playwright.options.WaitForSelectorState;
 
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class NavigationPage {
     //declare variable for Playwright Page
@@ -18,7 +14,154 @@ public class NavigationPage {
     //page constructor allows this class to use the Page object for browser interactions.
     public NavigationPage (Page page){
         this.page = page;
+        initLocators();
     }
+
+    private void initLocators() {
+        popUpXButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Close consent popup"));
+        homepageLogo = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("National Gallery Singapore –"));
+        membershipLogin = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Membership Login"));
+        cartButton = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Cart"));
+        menuIcon = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Menu"));
+        menuXButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Menu"));
+        menuFirstVisitImage = page.getByRole(AriaRole.BANNER).getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("What’s On"));
+        menuMustSeeTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Must-Sees & Must-Dos"));
+        menuMustSeeWhatsOnTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("What's On"));
+        menuMustSeeExhibitionTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Exhibitions").setExact(true));
+        menuMustSeeToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Tours").setExact(true));
+        menuMustSeeOurCollectionsTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Our Collections"));
+        menuMustSeeAGuideForFamiliesTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("A Guide for Families"));
+        menuMustSeeFeaturedExhibitionTextLink = page.locator(" #must-see-must-do-panel > .cards > div:nth-child(5)");
+        menuOurCollectionsTextLink = page.getByLabel("Main navigation").locator("a").filter(new Locator.FilterOptions().setHasText("Our Collections"));
+        menuOurArchitectureTextLink = page.getByLabel("Main navigation").locator("li").filter(new Locator.FilterOptions().setHasText("Our Architecture & History"));
+        menuLearnAboutArtTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Learn About Art"));
+        menuArtworkOfTheDayImage = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Artwork of the day"));
+        menuIntroToArtTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Intro to Art"));
+        menuArtAtHomeTextLink = page.getByLabel("Learn About Art Panel").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Art at Home for Families"));
+        menuAudioToursTextLink = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Audio Tours")).nth(1);
+        menuArtConservationTextLink = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Art Conservation")).nth(1);
+        menuPublicationsTextLink = page.getByLabel("Learn About Art Panel").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Publications"));
+        menuPerspectivesMagazineTextLink = page.getByLabel("Learn About Art Panel").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Perspectives Magazine"));
+        menuOnlineArtCoursesTextLink = page.getByLabel("Learn About Art Panel").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Online Art Courses"));
+        menuCuratorialResearchTextLink = page.getByLabel("Learn About Art Panel").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Curatorial Research"));
+        menuVisitTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Visit").setExact(true));
+        menuVisitWhatsOnTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("What’s On "));
+        menuVisitViewAllExhibitionsTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("View all Exhibitions "));
+        menuVisitGuidedToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Guided Tours").setExact(true));
+        menuVisitSelfGuidedToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Self-Guided Tours"));
+        menuVisitAudioToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Audio Tours").setExact(true));
+        menuVisitViewAllToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("View All Tours"));
+        menuVisitFamilyGuideTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Family Guide"));
+        menuVisitAccessibilityTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Accessibility at the Gallery"));
+        menuVisitGalleryGuideMapTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Gallery Guide + Map"));
+        menuVisitOpeningHoursTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Opening Hours & Getting Here"));
+        menuVisitAdmissionTicketingTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Admission & Ticketing"));
+        menuVisitDineShopTextLink = page.getByRole(AriaRole.REGION, new Page.GetByRoleOptions().setName("Visit")).getByLabel("Dine & Shop");
+        menuVisitRotundaLibraryTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Rotunda Library & Archive"));
+        menuVisitKeppelCentreTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Keppel Centre for Art"));
+        menuVisitVisitInformationTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("More Visitor Information"));
+        menuVisitSchoolVisitTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("School Visit "));
+        menuVisitBecomeAMemberTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Become a Member "));
+        menuVisitSGCulturePassTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("SG Culture Pass Programmes "));
+        menuAboutTextLink = page.getByRole(AriaRole.MENUITEM, new Page.GetByRoleOptions().setName("About").setExact(true));
+        menuOurStoryTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Our Story"));
+        menuAboutLeadershipTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Leadership"));
+        menuAboutOurAwardsTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Our Awards"));
+        menuAboutMediaCentreTextLink = page.getByRole(AriaRole.REGION, new Page.GetByRoleOptions().setName("About Panel")).getByLabel("Media Centre");
+        menuAboutAnnualReportsTextLink = page.getByRole(AriaRole.REGION, new Page.GetByRoleOptions().setName("About Panel")).getByLabel("Annual Reports");
+        menuAboutSustainabilityTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sustainability"));
+        menuAboutOurInitiativesTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Our Initiatives &"));
+        menuAboutCommunityGroupVisitsTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Community Group Visits"));
+        menuAboutCareersTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Careers & Internships"));
+        menuAboutVenueRentalTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Venue Rental"));
+        menuAboutPhotoshootsTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Photoshoots & Filming"));
+        menuAboutBusinessOpportunitiesTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Business Opportunities"));
+        menuAboutEnquiriesTextLink =page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Enquiries"));
+        menuAboutWhistleblowingTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Whistleblowing"));
+        menuDonateVolunteerTextLink = page.getByRole(AriaRole.MENUITEM, new Page.GetByRoleOptions().setName("Donate & Volunteer"));
+        menuMemberSignUpLoginTextLink = page.getByRole(AriaRole.MENUITEM, new Page.GetByRoleOptions().setName("Member Sign Up/Login"));
+        menuVenueRentalTextLink = page.getByRole(AriaRole.MENUITEM, new Page.GetByRoleOptions().setName("Venue Rental"));
+        menuIAmDropdown = page.getByText("I am a...Donor, Patron or");
+        menuDonorPatronVolunteerOption = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Donor, Patron or Volunteer"));
+        menuVendorBusinessPartnerOption = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Vendor/Business Partner"));
+        menuMediaProfessionalOption = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Media Professional"));
+        menuEventOrganiserOption = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Venue Hirer/Event Organiser"));
+        menuMainNavigationXButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Menu"));
+        getATicketOnItsOwnTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("get a ticket on its own"));
+    }
+
+    //Locators - Object Repository
+    Locator popUpXButton;
+    Locator homepageLogo;
+    Locator membershipLogin;
+    Locator cartButton;
+    Locator menuIcon;
+    Locator menuXButton;
+    Locator menuFirstVisitImage;
+    Locator menuMustSeeTextLink;
+    Locator menuMustSeeWhatsOnTextLink;
+    Locator menuMustSeeExhibitionTextLink;
+    Locator menuMustSeeToursTextLink;
+    Locator menuMustSeeOurCollectionsTextLink;
+    Locator menuMustSeeAGuideForFamiliesTextLink;
+    Locator menuMustSeeFeaturedExhibitionTextLink;
+    Locator menuOurCollectionsTextLink;
+    Locator menuOurArchitectureTextLink;
+    Locator menuLearnAboutArtTextLink;
+    Locator menuArtworkOfTheDayImage;
+    Locator menuIntroToArtTextLink;
+    Locator menuArtAtHomeTextLink;
+    Locator menuAudioToursTextLink;
+    Locator menuArtConservationTextLink;
+    Locator menuPublicationsTextLink;
+    Locator menuPerspectivesMagazineTextLink;
+    Locator menuOnlineArtCoursesTextLink;
+    Locator menuCuratorialResearchTextLink;
+    Locator menuVisitTextLink;
+    Locator menuVisitWhatsOnTextLink;
+    Locator menuVisitViewAllExhibitionsTextLink;
+    Locator menuVisitGuidedToursTextLink;
+    Locator menuVisitSelfGuidedToursTextLink;
+    Locator menuVisitAudioToursTextLink;
+    Locator menuVisitViewAllToursTextLink;
+    Locator menuVisitFamilyGuideTextLink;
+    Locator menuVisitAccessibilityTextLink;
+    Locator menuVisitGalleryGuideMapTextLink;
+    Locator menuVisitOpeningHoursTextLink;
+    Locator menuVisitAdmissionTicketingTextLink;
+    Locator menuVisitDineShopTextLink;
+    Locator menuVisitRotundaLibraryTextLink;
+    Locator menuVisitKeppelCentreTextLink;
+    Locator menuVisitVisitInformationTextLink;
+    Locator menuVisitSchoolVisitTextLink;
+    Locator menuVisitBecomeAMemberTextLink;
+    Locator menuVisitSGCulturePassTextLink;
+    Locator menuAboutTextLink;
+    Locator menuOurStoryTextLink;
+    Locator menuAboutLeadershipTextLink;
+    Locator menuAboutOurAwardsTextLink;
+    Locator menuAboutMediaCentreTextLink;
+    Locator menuAboutAnnualReportsTextLink;
+    Locator menuAboutSustainabilityTextLink;
+    Locator menuAboutOurInitiativesTextLink;
+    Locator menuAboutCommunityGroupVisitsTextLink;
+    Locator menuAboutCareersTextLink;
+    Locator menuAboutVenueRentalTextLink;
+    Locator menuAboutPhotoshootsTextLink;
+    Locator menuAboutBusinessOpportunitiesTextLink;
+    Locator menuAboutEnquiriesTextLink;
+    Locator menuAboutWhistleblowingTextLink;
+    Locator menuDonateVolunteerTextLink;
+    Locator menuMemberSignUpLoginTextLink;
+    Locator menuVenueRentalTextLink;
+    Locator menuIAmDropdown;
+    Locator menuDonorPatronVolunteerOption;
+    Locator menuVendorBusinessPartnerOption;
+    Locator menuMediaProfessionalOption;
+    Locator menuEventOrganiserOption;
+    Locator menuMainNavigationXButton;
+    Locator getATicketOnItsOwnTextLink;
+
 
     //Safe click helper
     private void safeClick(Locator locator, String elementName) {
@@ -48,45 +191,55 @@ public class NavigationPage {
         }
     }
 
-
+    //Disabling lazy loading helper to optimize automation testing and avoid flaky tests
+    public void forceLoadAllLazyMedia() {
+        page.evaluate("() => {" +
+                "document.querySelectorAll('img[data-src]').forEach(img => {" +
+                "   img.setAttribute('src', img.getAttribute('data-src'));" +
+                "});" +
+                "document.querySelectorAll('video[data-src]').forEach(video => {" +
+                "   video.setAttribute('src', video.getAttribute('data-src'));" +
+                "});" +
+                "document.querySelectorAll('[loading=\"lazy\"]').forEach(el => {" +
+                "   el.removeAttribute('loading');" +
+                "});" +
+                "}");
+        page.waitForLoadState(LoadState.LOAD);
+    }
 
     //page ACTION methods
     public void clickPopUpXButton(){
-        Locator popUpXButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Close consent popup"));
         safeClick(popUpXButton, "Close consent popup");
     }
     public void clickHomepageLogo(){
-        Locator homepageLogo = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("National Gallery Singapore –"));
         safeClick(homepageLogo, "National Gallery Singapore –");
     }
 
     public void clickMembershipLogin(){
-        Locator membershipLogin = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Membership Login"));
+
         safeClick(membershipLogin, "Membership Login");
     }
 
-    public void clickCartButton(){
-        Locator cartButton = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Cart"));
+    //Page chaining
+    public CartPage clickCartButton(){
         safeClick(cartButton, "Cart");
+        return new CartPage(page);
     }
 
     public void clickMenuIcon(){
-        Locator menuIcon = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Menu"));
         safeClick(menuIcon, "Menu");
     }
 
     public void clickMenuXButton(){
-        Locator menuXButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Menu"));
         menuXButton.click();
     }
 
     public void clickFirstVisit(){
-        Locator menuFirstVisitImage = page.getByRole(AriaRole.BANNER).getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("What’s On"));
+
         menuFirstVisitImage.click();
     }
 
     public void clickMustSees(){
-        Locator menuMustSeeTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Must-Sees & Must-Dos"));
         safeClick(menuMustSeeTextLink, "Must-Sees & Must-Dos");
     }
 
@@ -96,7 +249,6 @@ public class NavigationPage {
     }
 
     public void clickMustSeeWhatsOn(){
-        Locator menuMustSeeWhatsOnTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("What's On"));
         menuMustSeeWhatsOnTextLink.click();
     }
 
@@ -106,8 +258,7 @@ public class NavigationPage {
     }
 
     public void clickMustSeeExhibition(){
-        Locator menuMustSeeExhibitionTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Exhibitions").setExact(true));
-        menuMustSeeExhibitionTextLink.click();
+        safeClick(menuMustSeeExhibitionTextLink, "Exhibitions");
     }
 
     public void goToWhatsOnExhibitions(){
@@ -116,7 +267,6 @@ public class NavigationPage {
     }
 
     public void clickMustSeeTours(){
-        Locator menuMustSeeToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Tours").setExact(true));
         safeClick(menuMustSeeToursTextLink, "Tours");
     }
 
@@ -126,7 +276,6 @@ public class NavigationPage {
     }
 
     public void clickMustSeeOurCollections(){
-        Locator menuMustSeeOurCollectionsTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Our Collections"));
         menuMustSeeOurCollectionsTextLink.click();
     }
 
@@ -136,7 +285,6 @@ public class NavigationPage {
     }
 
     public void clickMustSeeAGuideForFamilies(){
-        Locator menuMustSeeAGuideForFamiliesTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("A Guide for Families"));
         menuMustSeeAGuideForFamiliesTextLink.click();
     }
 
@@ -147,7 +295,6 @@ public class NavigationPage {
 
     //for locators, '#' represents the id while '.' represents the className
     public void clickMustSeeFeaturedExhibition(){
-        Locator menuMustSeeFeaturedExhibitionTextLink = page.locator(" #must-see-must-do-panel > .cards > div:nth-child(5)");
         menuMustSeeFeaturedExhibitionTextLink.click();
     }
 
@@ -157,7 +304,6 @@ public class NavigationPage {
     }
 
     public void clickOurCollections(){
-        Locator menuOurCollectionsTextLink = page.getByLabel("Main navigation").locator("a").filter(new Locator.FilterOptions().setHasText("Our Collections"));
         menuOurCollectionsTextLink.click();
     }
 
@@ -167,7 +313,6 @@ public class NavigationPage {
     }
 
     public void clickOurArchitecture(){
-        Locator menuOurArchitectureTextLink = page.getByLabel("Main navigation").locator("li").filter(new Locator.FilterOptions().setHasText("Our Architecture & History"));
         menuOurArchitectureTextLink.click();
     }
 
@@ -177,7 +322,6 @@ public class NavigationPage {
     }
 
     public void clickLearnAboutArt(){
-        Locator menuLearnAboutArtTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Learn About Art"));
         safeClick(menuLearnAboutArtTextLink, "Learn About Art");
     }
 
@@ -187,7 +331,6 @@ public class NavigationPage {
     }
 
     public void clickArtworkOfTheDay(){
-        Locator menuArtworkOfTheDayImage = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Artwork of the day"));
         menuArtworkOfTheDayImage.click();
     }
 
@@ -197,7 +340,6 @@ public class NavigationPage {
     }
 
     public void clickIntroToArt(){
-        Locator menuIntroToArtTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Intro to Art"));
         menuIntroToArtTextLink.click();
     }
 
@@ -206,15 +348,14 @@ public class NavigationPage {
         clickIntroToArt();
     }
     public void clickArtAtHome(){
-        Locator menuArtAtHomeTextLink = page.getByLabel("Learn About Art Panel").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Art at Home for Families"));
-        menuArtAtHomeTextLink.click();
+        safeClick(menuArtAtHomeTextLink, "Art at Home for Families");
     }
     public void goToArtAtHome(){
         goToLearnAboutArt();
         clickArtAtHome();
     }
+
     public void clickAudioTours(){
-        Locator menuAudioToursTextLink = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Audio Tours")).nth(1);
         menuAudioToursTextLink.click();
     }
     public void goToAudioTours(){
@@ -222,7 +363,6 @@ public class NavigationPage {
         clickAudioTours();
     }
     public void clickArtConservation(){
-        Locator menuArtConservationTextLink = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Art Conservation")).nth(1);
         menuArtConservationTextLink.click();
     }
     public void goToArtConservation(){
@@ -230,7 +370,6 @@ public class NavigationPage {
         clickArtConservation();
     }
     public void clickPublications(){
-        Locator menuPublicationsTextLink = page.getByLabel("Learn About Art Panel").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Publications"));
         menuPublicationsTextLink.click();
     }
     public void goToPublications(){
@@ -238,7 +377,6 @@ public class NavigationPage {
         clickPublications();
     }
     public void clickPerspectivesMagazine(){
-        Locator menuPerspectivesMagazineTextLink = page.getByLabel("Learn About Art Panel").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Perspectives Magazine"));
         menuPerspectivesMagazineTextLink.click();
     }
     public void goToPerspectivesMagazine(){
@@ -246,7 +384,6 @@ public class NavigationPage {
         clickPerspectivesMagazine();
     }
     public void clickOnlineArtCourses(){
-        Locator menuOnlineArtCoursesTextLink = page.getByLabel("Learn About Art Panel").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Online Art Courses"));
         menuOnlineArtCoursesTextLink.click();
     }
     public void goToOnlineArtCourses(){
@@ -254,7 +391,6 @@ public class NavigationPage {
         clickOnlineArtCourses();
     }
     public void clickCuratorialResearch(){
-        Locator menuCuratorialResearchTextLink = page.getByLabel("Learn About Art Panel").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Curatorial Research"));
         menuCuratorialResearchTextLink.click();
     }
     public void goToCuratorialResearch(){
@@ -262,7 +398,6 @@ public class NavigationPage {
         clickCuratorialResearch();
     }
     public void clickVisit() {
-        Locator menuVisitTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Visit").setExact(true));
         safeClick(menuVisitTextLink, "Visit");
     }
 
@@ -271,7 +406,6 @@ public class NavigationPage {
         clickVisit();
     }
     public void clickVisitWhatsOn(){
-        Locator menuVisitWhatsOnTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("What’s On "));
         menuVisitWhatsOnTextLink.click();
     }
     public void goToVisitWhatsOn(){
@@ -279,7 +413,6 @@ public class NavigationPage {
         clickVisitWhatsOn();
     }
     public void clickVisitViewAllExhibitions(){
-        Locator menuVisitViewAllExhibitionsTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("View all Exhibitions "));
         safeClick( menuVisitViewAllExhibitionsTextLink, "View all Exhibitions ");
     }
     public void goToVisitViewAllExhibitions(){
@@ -287,7 +420,6 @@ public class NavigationPage {
         clickVisitViewAllExhibitions();
     }
     public void clickVisitGuidedTours(){
-        Locator menuVisitGuidedToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Guided Tours").setExact(true));
         safeClick(menuVisitGuidedToursTextLink, "Guided Tours");
     }
     public void goToVisitGuidedTours(){
@@ -295,7 +427,6 @@ public class NavigationPage {
         clickVisitGuidedTours();
     }
     public void clickVisitSelfGuidedTours(){
-        Locator menuVisitSelfGuidedToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Self-Guided Tours"));
         safeClick(menuVisitSelfGuidedToursTextLink, "Self-Guided Tours");
     }
     public void goToVisitSelfGuidedTours(){
@@ -303,7 +434,6 @@ public class NavigationPage {
         clickVisitSelfGuidedTours();
     }
     public void clickVisitAudioTours(){
-        Locator menuVisitAudioToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Audio Tours").setExact(true));
         menuVisitAudioToursTextLink.click();
     }
     public void goToVisitAudioTours(){
@@ -311,7 +441,6 @@ public class NavigationPage {
         clickVisitAudioTours();
     }
     public void clickVisitViewAllTours(){
-        Locator menuVisitViewAllToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("View All Tours"));
         menuVisitViewAllToursTextLink.click();
     }
     public void goToVisitViewAllTours(){
@@ -319,7 +448,6 @@ public class NavigationPage {
         clickVisitViewAllTours();
     }
     public void clickVisitFamilyGuide(){
-        Locator menuVisitFamilyGuideTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Family Guide"));
         menuVisitFamilyGuideTextLink.click();
     }
     public void goToVisitFamilyGuide(){
@@ -327,7 +455,6 @@ public class NavigationPage {
         clickVisitFamilyGuide();
     }
     public void clickVisitAccessibility(){
-        Locator menuVisitAccessibilityTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Accessibility at the Gallery"));
         menuVisitAccessibilityTextLink.click();
     }
     public void goToVisitAccessibility(){
@@ -335,7 +462,6 @@ public class NavigationPage {
         clickVisitAccessibility();
     }
     public void clickVisitGalleryGuideMap(){
-        Locator menuVisitGalleryGuideMapTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Gallery Guide + Map"));
         menuVisitGalleryGuideMapTextLink.click();
     }
     public void goToVisitGalleryGuideMap(){
@@ -343,7 +469,8 @@ public class NavigationPage {
         clickVisitGalleryGuideMap();
     }
     public void clickVisitOpeningHours(){
-        Locator menuVisitOpeningHoursTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Opening Hours & Getting Here"));
+        safeClick(menuVisitOpeningHoursTextLink, "Opening Hours & Getting Here");
+        /*
         try {
             // Wait until the element is visible and enabled before clicking
             menuVisitOpeningHoursTextLink.waitFor(new Locator.WaitForOptions()
@@ -357,13 +484,14 @@ public class NavigationPage {
         } catch (PlaywrightException e) {
             System.err.println("Error clicking 'Opening Hours' link: " + e.getMessage());
         }
+
+         */
     }
     public void goToVisitOpeningHours(){
         goToVisit();
         clickVisitOpeningHours();
     }
     public void clickVisitAdmissionTicketing(){
-        Locator menuVisitAdmissionTicketingTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Admission & Ticketing"));
         menuVisitAdmissionTicketingTextLink.click();
     }
     public void goToVisitAdmissionTicketing(){
@@ -371,7 +499,6 @@ public class NavigationPage {
         clickVisitAdmissionTicketing();
     }
     public void clickVisitDineShop(){
-        Locator menuVisitDineShopTextLink = page.getByRole(AriaRole.REGION, new Page.GetByRoleOptions().setName("Visit")).getByLabel("Dine & Shop");
         menuVisitDineShopTextLink.click();
     }
     public void goToVisitDineShop(){
@@ -379,7 +506,6 @@ public class NavigationPage {
         clickVisitDineShop();
     }
     public void clickVisitRotundaLibrary(){
-        Locator menuVisitRotundaLibraryTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Rotunda Library & Archive"));
         menuVisitRotundaLibraryTextLink.click();
     }
     public void goToVisitRotundaLibrary(){
@@ -387,7 +513,6 @@ public class NavigationPage {
         clickVisitRotundaLibrary();
     }
     public void clickVisitKeppelCentre(){
-        Locator menuVisitKeppelCentreTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Keppel Centre for Art"));
         menuVisitKeppelCentreTextLink.click();
     }
     public void goToVisitKeppelCentre(){
@@ -395,15 +520,13 @@ public class NavigationPage {
         clickVisitKeppelCentre();
     }
     public void clickVisitMoreVisitorInformation(){
-        Locator menuVisitVisitInformationTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("More Visitor Information"));
-                menuVisitVisitInformationTextLink.click();
+        menuVisitVisitInformationTextLink.click();
     }
     public void goToVisitMoreVisitorInformation(){
         goToVisit();
         clickVisitMoreVisitorInformation();
     }
     public void clickVisitSchoolVisit(){
-        Locator menuVisitSchoolVisitTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("School Visit "));
         menuVisitSchoolVisitTextLink.click();
     }
     public void goToVisitSchoolVisit(){
@@ -411,7 +534,6 @@ public class NavigationPage {
         clickVisitSchoolVisit();
     }
     public void clickVisitBecomeAMember(){
-        Locator menuVisitBecomeAMemberTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Become a Member "));
         menuVisitBecomeAMemberTextLink.click();
     }
     public void goToVisitBecomeAMember(){
@@ -419,7 +541,6 @@ public class NavigationPage {
         clickVisitBecomeAMember();
     }
     public void clickVisitSGCulturePass(){
-        Locator menuVisitSGCulturePassTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("SG Culture Pass Programmes "));
         menuVisitSGCulturePassTextLink.click();
     }
     public void goToVisitSGCulturePass(){
@@ -427,7 +548,6 @@ public class NavigationPage {
         clickVisitSGCulturePass();
     }
     public void clickAbout(){
-        Locator menuAboutTextLink = page.getByRole(AriaRole.MENUITEM, new Page.GetByRoleOptions().setName("About").setExact(true));
         menuAboutTextLink.click();
     }
     public void goToAbout(){
@@ -435,7 +555,6 @@ public class NavigationPage {
         clickAbout();
     }
     public void clickAboutOurStory(){
-        Locator menuOurStoryTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Our Story"));
         menuOurStoryTextLink.click();
     }
     public void goToAboutOurStory(){
@@ -443,7 +562,6 @@ public class NavigationPage {
         clickAboutOurStory();
     }
     public void clickAboutLeadership(){
-        Locator menuAboutLeadershipTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Leadership"));
         menuAboutLeadershipTextLink.click();
     }
     public void goToAboutLeadership(){
@@ -451,7 +569,6 @@ public class NavigationPage {
         clickAboutLeadership();
     }
     public void clickAboutOurAwards(){
-        Locator menuAboutOurAwardsTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Our Awards"));
         menuAboutOurAwardsTextLink.click();
     }
     public void goToAboutOurAwards(){
@@ -459,7 +576,6 @@ public class NavigationPage {
         clickAboutOurAwards();
     }
     public void clickAboutMediaCentre(){
-        Locator menuAboutMediaCentreTextLink = page.getByRole(AriaRole.REGION, new Page.GetByRoleOptions().setName("About Panel")).getByLabel("Media Centre");
         menuAboutMediaCentreTextLink.click();
     }
     public void goToAboutMediaCentre(){
@@ -467,7 +583,6 @@ public class NavigationPage {
         clickAboutMediaCentre();
     }
     public void clickAboutAnnualReports(){
-        Locator menuAboutAnnualReportsTextLink = page.getByRole(AriaRole.REGION, new Page.GetByRoleOptions().setName("About Panel")).getByLabel("Annual Reports");
         menuAboutAnnualReportsTextLink.click();
     }
     public void goToAboutAnnualReports(){
@@ -475,7 +590,6 @@ public class NavigationPage {
         clickAboutAnnualReports();
     }
     public void clickAboutSustainability(){
-        Locator menuAboutSustainabilityTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Sustainability"));
         menuAboutSustainabilityTextLink.click();
     }
     public void goToAboutSustainability(){
@@ -483,7 +597,6 @@ public class NavigationPage {
         clickAboutSustainability();
     }
     public void clickAboutOurInitiatives(){
-        Locator menuAboutOurInitiativesTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Our Initiatives &"));
         menuAboutOurInitiativesTextLink.click();
     }
     public void goToAboutOurInitiatives() {
@@ -491,7 +604,6 @@ public class NavigationPage {
         clickAboutOurInitiatives();
     }
     public void clickAboutCommunityGroupVisits(){
-        Locator menuAboutCommunityGroupVisitsTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Community Group Visits"));
         menuAboutCommunityGroupVisitsTextLink.click();
     }
     public void goToAboutCommunityGroupVisits(){
@@ -499,7 +611,6 @@ public class NavigationPage {
         clickAboutCommunityGroupVisits();
     }
     public void clickAboutCareers() {
-        Locator menuAboutCareersTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Careers & Internships"));
         menuAboutCareersTextLink.click();
     }
     public void goToAboutCareers(){
@@ -507,7 +618,6 @@ public class NavigationPage {
         clickAboutCareers();
     }
     public void clickAboutVenueRental(){
-        Locator menuAboutVenueRentalTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Venue Rental"));
         menuAboutVenueRentalTextLink.click();
     }
     public void goToAboutVenueRental(){
@@ -515,7 +625,6 @@ public class NavigationPage {
         clickAboutVenueRental();
     }
     public void clickAboutPhotoshoots(){
-        Locator menuAboutPhotoshootsTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Photoshoots & Filming"));
         menuAboutPhotoshootsTextLink.click();
     }
     public void goToAboutPhotoshoots(){
@@ -523,7 +632,6 @@ public class NavigationPage {
         clickAboutPhotoshoots();
     }
     public void clickAboutBusinessOpportunities(){
-        Locator menuAboutBusinessOpportunitiesTextLink = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Business Opportunities"));
         menuAboutBusinessOpportunitiesTextLink.click();
     }
     public void goToAboutBusinessOpportunities(){
@@ -531,7 +639,6 @@ public class NavigationPage {
         clickAboutBusinessOpportunities();
     }
     public void clickAboutEnquiries(){
-        Locator menuAboutEnquiriesTextLink =page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Enquiries"));
         menuAboutEnquiriesTextLink.click();
     }
     public void goToAboutEnquiries(){
@@ -539,7 +646,6 @@ public class NavigationPage {
         clickAboutEnquiries();
     }
     public void clickAboutWhistleblowing(){
-        Locator menuAboutWhistleblowingTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Whistleblowing"));
         menuAboutWhistleblowingTextLink.click();
     }
     public void goToAboutWhistleblowing(){
@@ -547,7 +653,6 @@ public class NavigationPage {
         clickAboutWhistleblowing();
     }
     public void clickMenuDonateVolunteer(){
-        Locator menuDonateVolunteerTextLink = page.getByRole(AriaRole.MENUITEM, new Page.GetByRoleOptions().setName("Donate & Volunteer"));
         menuDonateVolunteerTextLink.click();
     }
     public void goToMenuDonateVolunteer(){
@@ -555,7 +660,6 @@ public class NavigationPage {
         clickMenuDonateVolunteer();
     }
     public void clickMemberSignUpLogin(){
-        Locator menuMemberSignUpLoginTextLink = page.getByRole(AriaRole.MENUITEM, new Page.GetByRoleOptions().setName("Member Sign Up/Login"));
         menuMemberSignUpLoginTextLink.click();
     }
     public void goToMenuMemberSignUpLogin(){
@@ -563,7 +667,6 @@ public class NavigationPage {
         clickMemberSignUpLogin();
     }
     public void clickVenueRental(){
-        Locator menuVenueRentalTextLink = page.getByRole(AriaRole.MENUITEM, new Page.GetByRoleOptions().setName("Venue Rental"));
         menuVenueRentalTextLink.click();
     }
     public void goToMenuVenueRental(){
@@ -571,11 +674,9 @@ public class NavigationPage {
         clickVenueRental();
     }
     public void clickMenuIAm(){
-        Locator menuIAmDropdown = page.getByText("I am a...Donor, Patron or");
         menuIAmDropdown.click();
     }
     public void clickDonorPatronVolunteer(){
-        Locator menuDonorPatronVolunteerOption = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Donor, Patron or Volunteer"));
         menuDonorPatronVolunteerOption.click();
     }
     public void goToMenuDonorPatronVolunteer(){
@@ -584,7 +685,6 @@ public class NavigationPage {
         clickDonorPatronVolunteer();
     }
     public void clickVendorBusinessPartner(){
-        Locator menuVendorBusinessPartnerOption = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Vendor/Business Partner"));
         menuVendorBusinessPartnerOption.click();
     }
     public void goToMenuVendorBusinessPartner(){
@@ -593,7 +693,6 @@ public class NavigationPage {
         clickVendorBusinessPartner();
     }
     public void clickMediaProfessional(){
-        Locator menuMediaProfessionalOption = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Media Professional"));
         menuMediaProfessionalOption.click();
     }
     public void goToMenuMediaProfessional(){
@@ -602,7 +701,6 @@ public class NavigationPage {
         clickMediaProfessional();
     }
     public void clickEventOrganiser(){
-        Locator menuEventOrganiserOption = page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText("Venue Hirer/Event Organiser"));
         menuEventOrganiserOption.click();
     }
     public void goToMenuEventOrganiser(){
@@ -611,20 +709,20 @@ public class NavigationPage {
         clickEventOrganiser();
     }
     public void clickMainNavigationXButton(){
-        Locator menuMainNavigationXButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Menu"));
         menuMainNavigationXButton.click();
     }
     public void goToCloseMainNavigation(){
         clickMainNavigationXButton();
     }
 
-    public void clickGetATicketOnItsOwn(){
-        Locator getATicketOnItsOwnTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("get a ticket on its own"));
+    public CartPage clickGetATicketOnItsOwn(){
         safeClick(getATicketOnItsOwnTextLink, "get a ticket on its own");
+        return new CartPage(page);
     }
-    public void goToDirectPurchase(){
+
+    public DirectPurchasePage goToDirectPurchase(){
         clickCartButton();
         clickGetATicketOnItsOwn();
+        return new DirectPurchasePage(page);
     }
 }
-

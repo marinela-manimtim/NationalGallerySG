@@ -1,0 +1,105 @@
+Chaining multiple actions in Playwright Java means **executing a sequence of user interactions across different pages**, where each method returns the next page object. This pattern is especially useful in modeling **real user flows** like logging in, adding items to a cart, and checking out.
+
+***
+
+### 🔗 **How to Chain Multiple Actions (Step-by-Step)**
+
+Let’s say you want to simulate this flow:
+
+1.  Go to Homepage
+2.  Click Cart button → CartPage
+3.  Add item to cart → CartPage (same page)
+4.  Proceed to checkout → CheckoutPage
+
+Here’s how you can implement and chain these actions:
+
+***
+
+### 🧱 **Page Object Classes**
+
+#### `HomePage.java`
+
+```java
+public class HomePage {
+    private Page page;
+    private Locator cartButton = page.locator("#cart");
+
+    public HomePage(Page page) {
+        this.page = page;
+    }
+
+    public CartPage clickCartButton() {
+        cartButton.click();
+        return new CartPage(page);
+    }
+}
+```
+
+#### `CartPage.java`
+
+```java
+public class CartPage {
+    private Page page;
+    private Locator addItemButton = page.locator("#add-item");
+    private Locator checkoutButton = page.locator("#checkout");
+
+    public CartPage(Page page) {
+        this.page = page;
+    }
+
+    public CartPage addItemToCart(String itemName) {
+        page.locator(String.format("text=%s", itemName)).click(); // or use a smarter locator
+        addItemButton.click();
+        return this; // stays on CartPage
+    }
+
+    public CheckoutPage proceedToCheckout() {
+        checkoutButton.click();
+        return new CheckoutPage(page);
+    }
+}
+```
+
+#### `CheckoutPage.java`
+
+```java
+public class CheckoutPage {
+    private Page page;
+
+    public CheckoutPage(Page page) {
+        this.page = page;
+    }
+
+    // Checkout actions here
+}
+```
+
+***
+
+### 🧪 **Test Code Using Chaining**
+
+```java
+@Test
+public void testUserCheckoutFlow() {
+    Page page = playwright.chromium().launch().newPage();
+    HomePage homePage = new HomePage(page);
+
+    CheckoutPage checkoutPage = homePage
+        .clickCartButton()
+        .addItemToCart("Laptop")
+        .proceedToCheckout();
+
+    // Now you can assert something on checkoutPage
+}
+```
+
+***
+
+### ✅ Benefits of This Approach
+
+*   **Fluent and readable test flow**
+*   **Encapsulation of page logic**
+*   **Easy to maintain and extend**
+*   **Supports complex user journeys**
+
+Would you like help building a full test suite using this pattern?

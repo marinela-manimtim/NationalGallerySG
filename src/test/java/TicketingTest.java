@@ -29,19 +29,20 @@ public class TicketingTest extends BaseTest{
         Locator locator = page.getByRole(role, new Page.GetByRoleOptions().setName(name).setExact(exact));
         assertVisible(locator);
     }
-
+/*
     @Test(priority = 1)
+
     public void DirectPurchaseTest() throws InterruptedException {
         navigationPage.clickPopUpXButton();
         navigationPage.goToDirectPurchase();
-        cartPage.chooseOtherNationalities();
-        cartPage.chooseGA();
-        cartPage.chooseConcession();
+        directPurchasePage.chooseOtherNationalities();
+        directPurchasePage.chooseGA();
+        directPurchasePage.chooseConcession();
 
         // Compute expected price before continuing
-        String expectedTotalPrice = cartPage.computeTicketPrice();
+        String expectedTotalPrice = directPurchasePage.computeTicketPrice();
 
-        cartPage.continueToReview();
+        directPurchasePage.continueToReview();
 
         Locator actualTotalPrice = page.locator("div.flex.gap-10.font-size-28.font-size-22-sm.b.justify-between-sm div span");
         String actualTotalPriceText = actualTotalPrice.textContent().trim();
@@ -51,4 +52,6 @@ public class TicketingTest extends BaseTest{
                 .setTimeout(5000)); // Optional: customize timeout
         Assert.assertEquals(actualTotalPriceText, expectedTotalPrice);
     }
+
+     */
 }

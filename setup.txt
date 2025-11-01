@@ -1,4 +1,222 @@
+===============================
+SETUP CHECKLIST (CMD Commands)
+===============================
 
-Playwright runs on GraalVM. Set your JAVA_HOME to graalvm's path (excluding the bin folder)
-Install mvn and run mvn -version
+1. JDK + IntelliJ + Maven Troubleshooting Checklist
+Environment Setup
+-----------------
+- Install a stable JDK (preferably JDK 21 LTS)
+- Set JAVA_HOME system-wide:
+  setx JAVA_HOME "C:\Program Files\Java\jdk-21.0.7"
+  setx PATH "%JAVA_HOME%\bin;%PATH%"
+- Apply changes immediately in current terminal:
+  set JAVA_HOME=C:\Program Files\Java\jdk-21.0.7
+  set PATH=%JAVA_HOME%\bin;%PATH%
+- Verify:
+  echo %JAVA_HOME%
+  java -version
+  mvn -version
+
+IntelliJ Configuration
+----------------------
+- Set Project SDK to JDK 21:
+  File → Project Structure → Project
+- Set Module SDK to JDK 21:
+  File → Project Structure → Modules → Dependencies
+- Set Project language level to Java 21
+- Set Target bytecode version to 21:
+  File → Settings → Build, Execution, Deployment → Compiler → Java Compiler
+- Set Maven Import JDK to JDK 21:
+  File → Settings → Build Tools → Maven → Importing
+
+Maven Configuration (pom.xml)
+-----------------------------
+<properties>
+  <maven.compiler.source>21</maven.compiler.source>
+  <maven.compiler.target>21</maven.compiler.target>
+</properties>
+
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <version>3.10.1</version>
+      <configuration>
+        <source>21</source>
+        <target>21</target>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
+
+Final Cleanup
+-------------
+- Run: mvn clean install
+- IntelliJ: File → Invalidate Caches / Restart → Invalidate and Restart
+- Rebuild project: Build → Rebuild Project
+- Run tests or application
+
+Common Errors & Fixes
+---------------------
+Error: ExceptionInInitializerError / TypeTag.UNKNOWN
+Cause: GraalVM or JDK 24 compiler incompatibility
+Fix: Use JDK 21 LTS
+
+Error: JAVA_HOME not defined correctly
+Cause: Missing or incorrect environment variable
+Fix: Set JAVA_HOME and update PATH
+
+Error: release version 24 not supported
+Cause: JDK 21 used with Java 24 source/target
+Fix: Downgrade source/target to 21 or upgrade SDK to 24
+
+Error: IntelliJ terminal shows wrong JDK
+Cause: Terminal session not refreshed
+Fix: Use set commands or restart IntelliJ
+
+
+2. MAVEN SETUP
+--------------
+- Download Maven from: https://maven.apache.org/download.cgi
+- Unzip to: C:\Tools\apache-maven-3.9.6
+- Set environment variables:
+  setx /M MAVEN_HOME "C:\Tools\apache-maven-3.9.6"
+  setx /M PATH "C:\Tools\apache-maven-3.9.6\bin;%PATH%"
+- Verify:
+  mvn -version
+
+3. PLAYWRIGHT SETUP
+-------------------
+- Install Node.js from: https://nodejs.org
+- Initialize Playwright:
+  npm init playwright@latest
+- Run test:
+  npx playwright test
+
+
+===============================
+GITHUB SETUP CHECKLIST (CMD)
+===============================
+
+1. INSTALL GIT
+--------------
+- Download and install Git from: https://git-scm.com
+- Verify installation:
+  git --version
+
+2. CONFIGURE USER INFO
+----------------------
+- Set your Git identity:
+  git config --global user.name "Your Name"
+  git config --global user.email "you@example.com"
+
+3. LOGIN TO GITHUB (HTTPS METHOD)
+---------------------------------
+- Clone a repo (will prompt for login):
+  git clone https://github.com/username/repo.git
+- OR use GitHub CLI (optional):
+  gh auth login
+
+4. CREATE SSH KEY
+-----------------
+- Generate SSH key:
+  ssh-keygen -t ed25519 -C "you@example.com"
+- Press Enter to accept default file location:
+  > C:\Users\YourName\.ssh\id_ed25519
+- Set a passphrase (optional)
+
+5. ASSIGN SSH KEY TO GITHUB
+---------------------------
+- Copy public key to clipboard:
+  clip < %USERPROFILE%\.ssh\id_ed25519.pub
+- Go to GitHub > Settings > SSH and GPG keys
+- Click "New SSH key", paste the key, and save
+
+6. TEST SSH CONNECTION
+----------------------
+- Run:
+  ssh -T git@github.com
+- Expected output:
+  "Hi username! You've successfully authenticated..."
+
+7. SET DEFAULT PROTOCOL TO SSH
+------------------------------
+- Configure Git to use SSH:
+  git config --global url."git@github.com:".insteadOf "https://github.com/"
+
+8. CLONE REPO USING SSH
+------------------------
+- Run:
+  git clone git@github.com:username/repo.git
+
+9. OPTIONAL: CHECK CONFIGURATION
+--------------------------------
+- View global config:
+  git config --list --global
+- View SSH keys:
+  dir %USERPROFILE%\.ssh
+
+===============================
+GITHUB DESKTOP SETUP CHECKLIST
+===============================
+
+1. DOWNLOAD AND INSTALL
+-----------------------
+- Visit https://desktop.github.com
+- Click "Download for Windows"
+- Run the installer and complete setup
+
+2. SIGN IN TO GITHUB
+--------------------
+- Open GitHub Desktop
+- Click "Sign in to GitHub.com"
+- Log in using your GitHub credentials
+- Authorize GitHub Desktop to access your account
+
+3. CONFIGURE USER INFO
+----------------------
+- Go to File > Options
+- Set your name and email address
+- These will be used for commit history
+
+4. CLONE A REPOSITORY
+---------------------
+- Click File > Clone Repository
+- Choose a repository from your GitHub account or enter a URL
+- Select a local path and click "Clone"
+
+5. CREATE A NEW REPOSITORY
+--------------------------
+- Click File > New Repository
+- Enter repository name and description
+- Choose local path and optionally initialize with README
+- Click "Create Repository"
+
+6. COMMIT AND PUSH CHANGES
+--------------------------
+- Make changes to files in your local repo
+- GitHub Desktop will detect changes
+- Add a commit message and click "Commit to main"
+- Click "Push origin" to sync with GitHub
+
+
+
+7. PULL CHANGES FROM GITHUB
+---------------------------
+- Click "Fetch origin" to check for updates
+- Click "Pull origin" to sync changes from GitHub to your local repo
+
+
+
+8. OPTIONAL: SET UP SSH
+-----------------------
+- Open Command Prompt
+- Generate SSH key:
+  ssh-keygen -t ed25519 -C "you@example.com"
+- Press Enter to accept default location
+- Copy public key to clipboard:
+  clip < %USERPROFILE%\.ssh\id_ed25519.pub
+- Go to GitHub > Settings > SSH and GPG keys
+- Click "New SSH key", paste the key, and save
 
