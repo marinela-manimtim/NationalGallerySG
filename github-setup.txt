@@ -1,3 +1,11 @@
 @Todo
 List down step by step on how to setup github.
-List down the command lines used.
+
+📄 Basic Workflow
+git status – Check the status of your working directory
+git add <file> – Stage a file
+git add . – Stage all changes
+git commit -m "Your message" – Commit staged changes
+git push – Push changes to remote
+git pull – Fetch and merge changes from remote
+git fetch – Download changes without merging

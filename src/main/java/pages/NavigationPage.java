@@ -26,7 +26,7 @@ public class NavigationPage {
         menuXButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Menu"));
         menuFirstVisitImage = page.getByRole(AriaRole.BANNER).getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("What’s On"));
         menuMustSeeTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Must-Sees & Must-Dos"));
-        menuMustSeeWhatsOnTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("What's On"));
+        menuMustSeeWhatsOnTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("What's On").setExact(true));
         menuMustSeeExhibitionTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Exhibitions").setExact(true));
         menuMustSeeToursTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Tours").setExact(true));
         menuMustSeeOurCollectionsTextLink = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Our Collections"));

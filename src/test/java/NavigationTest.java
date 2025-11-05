@@ -92,6 +92,7 @@ public class NavigationTest extends BaseTest {
 
    @Test(priority = 8)
    public void menuMustSeeWhatsOnTest() {
+       navigationPage.clickPopUpXButton();
       navigationPage.goToWhatsOn();
       navigationPage.forceLoadAllLazyMedia();
       assertVisible(page, AriaRole.TABPANEL, SiteConstants.TODAY);

@@ -1,0 +1,92 @@
+# 1. Install Xcode Command Line Tools
+xcode-select --install
+
+# 2. Install Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Add Homebrew to PATH (if not automatically added)
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# 3. Install Git using Homebrew
+brew install git
+
+# Configure Git user info
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+
+# Verify Git
+git --version
+git config --list
+
+# 4. Install JDK (ARM64 DMG for Apple Silicon)
+# Download manually from Oracle or Adoptium:
+# https://www.oracle.com/java/technologies/downloads/
+# Choose macOS ARM64 DMG and install it.
+# After installation, verify:
+echo "Checking JDK installation..."
+/usr/libexec/java_home
+java -version
+
+# 5. Create .zshrc if it doesn't exist
+touch ~/.zshrc
+
+# 6. Add JAVA_HOME and update PATH
+echo 'export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home' >> ~/.zshrc
+echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.zshrc
+
+# Apply changes
+source ~/.zshrc
+
+# 7. Verify JAVA_HOME
+echo "JAVA_HOME is set to: $JAVA_HOME"
+java -version
+
+# 8. Apache Maven Installation and Setup on macOS – Checklist
+Download Apache Maven
+
+Go to the official Apache Maven website: https://maven.apache.org/download.cgi
+Download the binary tar.gz file (e.g., apache-maven-<version>-bin.tar.gz)
+
+Extract and Move Maven to /usr/local/apache-maven/
+Open Terminal
+Navigate to your Downloads folder:
+cd ~/Downloads
+
+Extract the tar.gz file:
+tar -xzf apache-maven-<version>-bin.tar.gz
+
+Create the target directory (if it doesn't exist):
+sudo mkdir -p /usr/local/apache-maven
+
+Move the extracted folder:
+sudo mv apache-maven-<version> /usr/local/apache-maven/
+
+Add Maven to PATH (Edit ~/.zshrc)
+Open ~/.zshrc in a text editor:
+nano ~/.zshrc
+
+Add the following lines at the end of the file:
+export M2_HOME=/usr/local/apache-maven/apache-maven-<version>
+export PATH=$M2_HOME/bin:$PATH
+
+Save and close the file (in nano: press CTRL+O, Enter, then CTRL+X)
+Apply the changes:
+source ~/.zshrc
+
+Verify Maven Installation
+mvn -v
+
+# 9. Node.js Installation via Homebrew – Checklist
+Open Terminal
+Update Homebrew (optional but recommended):
+brew update
+
+Install Node.js:
+brew install node
+
+Verify Installation:
+Check Node.js version:
+node -v
+Check npm (Node Package Manager) version:
+npm -v
