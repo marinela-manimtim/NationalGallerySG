@@ -21,6 +21,7 @@ public class HomepageTest extends BaseTest{
 
     @Test(priority = 1)
     public void disableLazyLoadTest(){
+        System.out.println("Sanity test running");
         //Force load all media (src, data-src) for optimized testing
         navigationPage.forceLoadAllLazyMedia();
         System.out.println("Lazy loading is now disabled.");

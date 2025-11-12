@@ -3,7 +3,11 @@
 <suite name="National Gallery Regression Suite" verbose="4" thread-count="4" parallel="tests">
     <test name="Regression Test">
         <classes>
+            <class name="HomepageTest"/>
             <class name="NavigationTest"/>
         </classes>
     </test>
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
 </suite>

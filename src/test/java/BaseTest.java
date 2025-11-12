@@ -1,6 +1,7 @@
 import Factory.PlaywrightFactory;
 import com.microsoft.playwright.Page;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import pages.CartPage;
 import pages.DirectPurchasePage;
@@ -24,7 +25,7 @@ public class BaseTest {
     protected CartPage cartPage;
     protected DirectPurchasePage directPurchasePage;
 
-    @BeforeTest
+    @BeforeClass
     public void launchBrowser() throws IOException {
         pf = new PlaywrightFactory();
         prop = pf.initProp();
