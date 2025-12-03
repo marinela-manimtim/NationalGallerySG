@@ -35,6 +35,7 @@ public class CartTest extends BaseTest{
     @Test(priority = 1)
     public void cartPageNavigationTest(){
         navigationPage.clickPopUpXButton();
+        navigationPage.clickSidePopUpXButton();
         cartPage = navigationPage.clickCartButton(); //this uses the page chaining model
         assertVisible(page, AriaRole.HEADING, SiteConstants.CART_PAGE_HEADING);
     }

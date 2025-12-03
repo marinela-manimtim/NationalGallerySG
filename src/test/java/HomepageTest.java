@@ -28,8 +28,9 @@ public class HomepageTest extends BaseTest{
     }
 
     @Test(priority = 2)
-    public void popUpXButtonTest() {
+    public void consentPopUpTest() {
         navigationPage.clickPopUpXButton();
+        navigationPage.clickSidePopUpXButton();
         assertVisible(page, AriaRole.HEADING, SiteConstants.POPUP_X_HEADING);
     }
 
@@ -67,7 +68,7 @@ public class HomepageTest extends BaseTest{
     @Test(priority = 6)
     public void callOutTest(){
         homePage.clickCallOut();
-        assertThat(page).hasURL(prop.getProperty("callOutUrl"));
+        assertThat(page).hasURL(prop.getProperty("callOutUrl")); //@ToDo refactor this.
     }
 
 

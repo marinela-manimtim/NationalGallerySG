@@ -39,8 +39,9 @@ public class NavigationTest extends BaseTest {
 
    //set test priority to temporarily set order of test execution. The order can be configured. @Todo set this config.
    @Test(priority = 1)
-   public void popUpXButtonTest() {
+   public void consentPopUpTest() {
       navigationPage.clickPopUpXButton();
+      navigationPage.clickSidePopUpXButton();
       assertVisible(page, AriaRole.HEADING, SiteConstants.POPUP_X_HEADING);
    }
 
@@ -158,6 +159,8 @@ public class NavigationTest extends BaseTest {
 
    @Test(priority = 17)
    public void menuArtworkOfTheDayTest() {
+       navigationPage.clickPopUpXButton();
+       navigationPage.clickSidePopUpXButton();
       navigationPage.goToArtworkOfTheDay();
       navigationPage.forceLoadAllLazyMedia();
       assertVisible(page, AriaRole.HEADING, SiteConstants.ARTWORK_DETAILS);

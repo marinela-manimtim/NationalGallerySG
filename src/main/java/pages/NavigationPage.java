@@ -19,6 +19,7 @@ public class NavigationPage {
 
     private void initLocators() {
         popUpXButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Close consent popup"));
+        sidePopUpXButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Close side popup"));
         homepageLogo = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("National Gallery Singapore –"));
         membershipLogin = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Membership Login"));
         cartButton = page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Cart"));
@@ -92,6 +93,7 @@ public class NavigationPage {
 
     //Locators - Object Repository
     Locator popUpXButton;
+    Locator sidePopUpXButton;
     Locator homepageLogo;
     Locator membershipLogin;
     Locator cartButton;
@@ -210,6 +212,9 @@ public class NavigationPage {
     //page ACTION methods
     public void clickPopUpXButton(){
         safeClick(popUpXButton, "Close consent popup");
+    }
+    public void clickSidePopUpXButton(){
+        safeClick(sidePopUpXButton, "Close side popup");
     }
     public void clickHomepageLogo(){
         safeClick(homepageLogo, "National Gallery Singapore –");

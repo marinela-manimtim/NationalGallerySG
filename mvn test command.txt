@@ -1,0 +1,3 @@
+mvn clean test -DsuiteXmlFile=testng_regression.xml
+allure generate target/allure-results --clean -o target/allure-report
+allure open target/allure-report

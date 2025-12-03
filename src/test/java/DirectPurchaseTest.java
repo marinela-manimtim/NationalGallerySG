@@ -74,6 +74,7 @@ public class DirectPurchaseTest extends BaseTest{
     @Test(priority = 1)
     public void directPurchaseTest() {
         navigationPage.clickPopUpXButton();
+        navigationPage.clickSidePopUpXButton();
 
         directPurchasePage = navigationPage
                 .goToDirectPurchase()
