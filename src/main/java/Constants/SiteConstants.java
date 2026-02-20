@@ -7,7 +7,7 @@ public class SiteConstants {
     public static final String OPENING_HOURS = "Open daily, 10am – 7pm";
     public static final String OPENING_HOURS_HEADING = "Opening hours";
     public static final String VISITOR_INFORMATION_HEADING = "Visitor Information";
-    public static final String MEMBERSHIP_LOGIN_BUTTON = "Log in";
+    public static final String MEMBERSHIP_LOGIN_BUTTON = "Log In";
     public static final String CART_PAGE_TITLE = "Cart | National Gallery Singapore";
     public static final String CART_PAGE_HEADING = "Your cart";
     public static final String MENU_ARIA_LABEL = "Main navigation";

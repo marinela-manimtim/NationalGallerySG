@@ -11,6 +11,7 @@ import com.microsoft.playwright.options.WaitForSelectorState;
 public class DirectPurchasePage {
     Page page;
 
+    //Constructor
     public DirectPurchasePage(Page page){
         this.page = page;
         initLocators();

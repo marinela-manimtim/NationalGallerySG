@@ -1,14 +1,21 @@
 import Factory.PlaywrightFactory;
 import com.microsoft.playwright.Page;
+import io.qameta.allure.Attachment;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 import pages.CartPage;
 import pages.DirectPurchasePage;
 import pages.HomePage;
 import pages.NavigationPage;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 public class BaseTest {
@@ -35,6 +42,24 @@ public class BaseTest {
         cartPage = new CartPage(page);
         directPurchasePage = new DirectPurchasePage(page);
         System.out.println("NavigationPage initialized: " + navigationPage);
+    }
+
+    @Attachment(value = "{0}", type = "image/png")
+    public byte[] saveScreenshot(String name) {
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String fileName = name.replace(" ", "_") + "_" + timestamp + ".png";
+        Path path = Paths.get("screenshots/" + fileName);
+
+        // Save screenshot to disk
+        page.screenshot(new Page.ScreenshotOptions().setPath(path));
+
+        // Return screenshot bytes so Allure attaches it
+        try {
+            return Files.readAllBytes(path);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new byte[0];
+        }
     }
 
     @AfterTest
