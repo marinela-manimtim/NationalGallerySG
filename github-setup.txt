@@ -10,3 +10,6 @@ git push – Push changes to remote
 git pull – Fetch and merge changes from remote
 git fetch – Download changes without merging
 git push token: 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
+
+Change repository(remote) before adding, committing, and pushing changes. 
+cd /Users/marinelamanimtim/IdeaProjects/JavaStorageState && git remote set-url origin https://github.com/marinela-manimtim/JavaStorageState.git
